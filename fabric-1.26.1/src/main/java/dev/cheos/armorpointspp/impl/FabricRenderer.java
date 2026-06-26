@@ -3,6 +3,7 @@ package dev.cheos.armorpointspp.impl;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.RenderSystem;
@@ -20,6 +21,9 @@ public class FabricRenderer implements IRenderer {
     private final Gui gui;
     private GuiGraphicsExtractor guiGraphics;
     private Identifier currentTexture;
+    private float currentRed = 1.0f;
+    private float currentGreen = 1.0f;
+    private float currentBlue = 1.0f;
 
     public FabricRenderer(Gui gui) {
         this.gui = gui;
@@ -32,12 +36,18 @@ public class FabricRenderer implements IRenderer {
     @Override
     public void blit(IPoseStack poseStack, int x, int y, float u, float v, int width, int height, int texWidth, int texHeight) {
         if (this.guiGraphics != null && this.currentTexture != null) {
+            // 应用颜色
+            RenderSystem.setShaderColor(currentRed, currentGreen, currentBlue, 1.0f);
             RenderSystem.setShaderTexture(0, this.currentTexture);
+            
             this.guiGraphics.blit(
                 RenderPipelines.GUI_TEXTURED,
                 this.currentTexture,
                 x, y, u, v, width, height, texWidth, texHeight
             );
+            
+            // 重置颜色
+            RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         }
     }
 
@@ -51,6 +61,7 @@ public class FabricRenderer implements IRenderer {
         if (this.guiGraphics != null) {
             Identifier tex = Identifier.tryParse(sprite.location());
             if (tex != null) {
+                RenderSystem.setShaderColor(currentRed, currentGreen, currentBlue, 1.0f);
                 RenderSystem.setShaderTexture(0, tex);
                 this.guiGraphics.blit(
                     RenderPipelines.GUI_TEXTURED,
@@ -58,6 +69,7 @@ public class FabricRenderer implements IRenderer {
                     x, y, sprite.u(), sprite.v(),
                     width, height, 256, 256
                 );
+                RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
             }
         }
     }
@@ -70,12 +82,14 @@ public class FabricRenderer implements IRenderer {
     @Override
     public void blitM(IPoseStack poseStack, int x, int y, float u, float v, int width, int height, int texWidth, int texHeight) {
         if (this.guiGraphics != null && this.currentTexture != null) {
+            RenderSystem.setShaderColor(currentRed, currentGreen, currentBlue, 1.0f);
             RenderSystem.setShaderTexture(0, this.currentTexture);
             this.guiGraphics.blit(
                 RenderPipelines.GUI_TEXTURED,
                 this.currentTexture,
                 x + width, y, -(u + width), v, width, height, texWidth, texHeight
             );
+            RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         }
     }
 
@@ -86,14 +100,17 @@ public class FabricRenderer implements IRenderer {
 
     @Override
     public void setColor(float r, float g, float b, float a) {
+        this.currentRed = r;
+        this.currentGreen = g;
+        this.currentBlue = b;
         RenderSystem.setShaderColor(r, g, b, a);
     }
 
     @Override
     public void setupAppp() {
-        // 初始化 APPP 渲染状态
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
     @Override
@@ -106,7 +123,6 @@ public class FabricRenderer implements IRenderer {
 
     @Override
     public void setupVanilla() {
-        // 重置为原版渲染状态
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.disableBlend();
     }
@@ -123,23 +139,3 @@ public class FabricRenderer implements IRenderer {
         if (ps instanceof PoseStack) {
             PoseStack stack = (PoseStack) ps;
             gui.getFont().drawInBatch(text, x, y, color, shadow,
-                    stack.last().pose(), Minecraft.getInstance().renderBuffers().bufferSource(),
-                    Font.DisplayMode.NORMAL, 0, 15728880);
-        } else {
-            Matrix4f identityMatrix = new Matrix4f().identity();
-            gui.getFont().drawInBatch(text, x, y, color, shadow,
-                    identityMatrix, Minecraft.getInstance().renderBuffers().bufferSource(),
-                    Font.DisplayMode.NORMAL, 0, 15728880);
-        }
-    }
-
-    @Override
-    public int width(Object... objs) {
-        if (objs == null || objs.length == 0) return 0;
-        StringBuilder sb = new StringBuilder();
-        for (Object obj : objs) {
-            sb.append(String.valueOf(obj));
-        }
-        return gui.getFont().width(sb.toString());
-    }
-}
