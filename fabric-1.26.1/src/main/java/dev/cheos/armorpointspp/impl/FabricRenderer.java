@@ -72,7 +72,7 @@ public class FabricRenderer implements IRenderer {
                 x + width, y, -(u + width), v, width, height, texWidth, texHeight
             );
         }
-    }  // ← 这里补了一个 }，之前缺失了
+    }
 
     @Override
     public void blitM(IPoseStack poseStack, int x, int y, float u, float v, int width, int height) {
@@ -113,4 +113,4 @@ public class FabricRenderer implements IRenderer {
         } else {
             gui.getFont().drawInBatch(text, x, y, color, shadow,
                     null, Minecraft.getInstance().renderBuffers().bufferSource(),
-      
+                    Font.DisplayMode.NORMAL, 0, 15728
