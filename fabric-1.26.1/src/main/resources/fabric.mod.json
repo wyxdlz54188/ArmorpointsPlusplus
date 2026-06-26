@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "armorpointspp",
+  "version": "${version}",
+  "name": "ArmorPointsPP",
+  "description": "Enhanced health and armor rendering for Minecraft",
+  "authors": [
+    "Cheos"
+  ],
+  "contact": {
+    "homepage": "https://github.com/cheos/armorpointspp"
+  },
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "dev.cheos.armorpointspp.impl.FabricClientModInitializer"
+    ],
+    "main": [
+      "dev.cheos.armorpointspp.impl.FabricModInitializer"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.3",
+    "minecraft": "~26.1.1",
+    "fabric-api": ">=0.153.0"
+  }
+}

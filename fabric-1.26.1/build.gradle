@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'net.fabricmc.fabric-loom' version '1.14.10'
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
+
+base {
+    archivesName = "${rootProject.modName}-fabric-26.1"
+}
+
+version = rootProject.modVersion
+group  = rootProject.modGroup
+
+repositories {
+    maven { url = 'https://maven.fabricmc.net/' }
+}
+
+dependencies {
+    minecraft "net.minecraft:minecraft:26.1.1"
+
+    implementation "net.fabricmc:fabric-loader:0.19.3"
+    implementation "net.fabricmc.fabric-api:fabric-api:0.153.0+26.1.2"
+
+    implementation project(':core')
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.encoding = "UTF-8"
+    it.options.release.set(25)
+}
