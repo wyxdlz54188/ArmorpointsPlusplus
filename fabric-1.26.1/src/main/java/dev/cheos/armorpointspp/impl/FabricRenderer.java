@@ -5,6 +5,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.RenderSystem;
 import net.minecraft.resources.Identifier;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -31,6 +32,7 @@ public class FabricRenderer implements IRenderer {
     @Override
     public void blit(IPoseStack poseStack, int x, int y, float u, float v, int width, int height, int texWidth, int texHeight) {
         if (this.guiGraphics != null && this.currentTexture != null) {
+            RenderSystem.setShaderTexture(0, this.currentTexture);
             this.guiGraphics.blit(
                 RenderPipelines.GUI_TEXTURED,
                 this.currentTexture,
@@ -49,6 +51,7 @@ public class FabricRenderer implements IRenderer {
         if (this.guiGraphics != null) {
             Identifier tex = Identifier.tryParse(sprite.location());
             if (tex != null) {
+                RenderSystem.setShaderTexture(0, tex);
                 this.guiGraphics.blit(
                     RenderPipelines.GUI_TEXTURED,
                     tex,
@@ -67,6 +70,7 @@ public class FabricRenderer implements IRenderer {
     @Override
     public void blitM(IPoseStack poseStack, int x, int y, float u, float v, int width, int height, int texWidth, int texHeight) {
         if (this.guiGraphics != null && this.currentTexture != null) {
+            RenderSystem.setShaderTexture(0, this.currentTexture);
             this.guiGraphics.blit(
                 RenderPipelines.GUI_TEXTURED,
                 this.currentTexture,
@@ -82,19 +86,29 @@ public class FabricRenderer implements IRenderer {
 
     @Override
     public void setColor(float r, float g, float b, float a) {
+        RenderSystem.setShaderColor(r, g, b, a);
     }
 
     @Override
     public void setupAppp() {
+        // 初始化 APPP 渲染状态
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
     }
 
     @Override
     public void setupTexture(ITextureSheet texSheet) {
         currentTexture = Identifier.tryParse(texSheet.texLocation());
+        if (currentTexture != null) {
+            RenderSystem.setShaderTexture(0, currentTexture);
+        }
     }
 
     @Override
     public void setupVanilla() {
+        // 重置为原版渲染状态
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
+        RenderSystem.disableBlend();
     }
 
     @Override
