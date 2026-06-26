@@ -137,4 +137,5 @@ public class FabricRenderer implements IRenderer {
         if (ps instanceof PoseStack) {
             PoseStack stack = (PoseStack) ps;
             gui.getFont().drawInBatch(text, x, y, color, shadow,
-                    stack.last().pose(), Minecraft.getI
+                    stack.last().pose(), 
+             
