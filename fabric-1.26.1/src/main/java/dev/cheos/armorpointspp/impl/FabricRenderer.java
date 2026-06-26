@@ -113,4 +113,18 @@ public class FabricRenderer implements IRenderer {
         } else {
             gui.getFont().drawInBatch(text, x, y, color, shadow,
                     null, Minecraft.getInstance().renderBuffers().bufferSource(),
-                    Font.DisplayMode.NORMAL, 0, 15728
+                    Font.DisplayMode.NORMAL, 0, 15728880,  // ← 这里加逗号
+                    0);  // ← 新增第10个参数
+        }
+    }
+
+    @Override
+    public int width(Object... objs) {
+        if (objs == null || objs.length == 0) return 0;
+        StringBuilder sb = new StringBuilder();
+        for (Object obj : objs) {
+            sb.append(String.valueOf(obj));
+        }
+        return gui.getFont().width(sb.toString());
+    }
+}
