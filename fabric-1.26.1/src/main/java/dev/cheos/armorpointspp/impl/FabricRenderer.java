@@ -126,4 +126,6 @@ public class FabricRenderer implements IRenderer {
         for (Object obj : objs) {
             sb.append(String.valueOf(obj));
         }
-        return gui.getFont().widt
+        return gui.getFont().width(sb.toString());
+    }
+}
