@@ -3,7 +3,10 @@ plugins {
 	id 'eclipse'
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
+
+version = rootProject.modVersion
+group  = rootProject.modGroup
 
 repositories {
 	mavenCentral()

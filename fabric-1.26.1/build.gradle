@@ -20,9 +20,13 @@ dependencies {
     minecraft "net.minecraft:minecraft:26.1.1"
 
     implementation "net.fabricmc:fabric-loader:0.19.3"
-    implementation "net.fabricmc.fabric-api:fabric-api:0.153.0+26.1.2"
+    implementation "net.fabricmc.fabric-api:fabric-api:0.145.4+26.1.1"
 
     implementation project(':core')
+}
+
+jar {
+    from project(':core').sourceSets.main.output
 }
 
 processResources {

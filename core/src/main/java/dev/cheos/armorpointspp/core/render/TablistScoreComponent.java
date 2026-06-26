@@ -16,10 +16,9 @@ public class TablistScoreComponent implements IRenderComponent {
 		if (!ctx.config.bool(BooleanOption.TABLIST_HEALTH_ENABLE))
 			return false;
 		
-		// WHY IS THERE NOT WAY TO DIFFERENTIATE BETWEEN MAX HEALTH AND ABSORPTION IN THIS?!?!?
-		
-		ctx.profiler.push("tablist.score");
-		int score = ctx.property("score");
+		Integer scoreObj = ctx.property("score");
+		if (scoreObj == null) return false;
+		int score = scoreObj;
 		
 		if (ctx.<Boolean>property("rendertype.hearts")) {
 			ITextureSheet tex = tex(ctx).bind(ctx);
