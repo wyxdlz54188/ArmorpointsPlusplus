@@ -36,7 +36,6 @@ public class FabricRenderer implements IRenderer {
     @Override
     public void blit(IPoseStack poseStack, int x, int y, float u, float v, int width, int height, int texWidth, int texHeight) {
         if (this.guiGraphics != null && this.currentTexture != null) {
-            // 应用颜色
             RenderSystem.setShaderColor(currentRed, currentGreen, currentBlue, 1.0f);
             RenderSystem.setShaderTexture(0, this.currentTexture);
             
@@ -46,7 +45,6 @@ public class FabricRenderer implements IRenderer {
                 x, y, u, v, width, height, texWidth, texHeight
             );
             
-            // 重置颜色
             RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         }
     }
@@ -139,3 +137,4 @@ public class FabricRenderer implements IRenderer {
         if (ps instanceof PoseStack) {
             PoseStack stack = (PoseStack) ps;
             gui.getFont().drawInBatch(text, x, y, color, shadow,
+                    stack.last().pose(), Minecraft.getI
