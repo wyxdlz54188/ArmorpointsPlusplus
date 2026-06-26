@@ -72,7 +72,7 @@ public class FabricRenderer implements IRenderer {
                 x + width, y, -(u + width), v, width, height, texWidth, texHeight
             );
         }
-    }
+    }  // ← 这里补了一个 }，之前缺失了
 
     @Override
     public void blitM(IPoseStack poseStack, int x, int y, float u, float v, int width, int height) {
@@ -106,12 +106,11 @@ public class FabricRenderer implements IRenderer {
         Object ps = poseStack.getPoseStack();
         
         if (ps instanceof PoseStack) {
-            // 普通渲染路径 (PoseStack)
             PoseStack stack = (PoseStack) ps;
             gui.getFont().drawInBatch(text, x, y, color, shadow,
                     stack.last().pose(), Minecraft.getInstance().renderBuffers().bufferSource(),
                     Font.DisplayMode.NORMAL, 0, 15728880);
         } else {
-            // HUD渲染路径 (Matrix3x2fStack 或其他) — 不需要3D变换矩阵
             gui.getFont().drawInBatch(text, x, y, color, shadow,
-  
+                    null, Minecraft.getInstance().renderBuffers().bufferSource(),
+      
