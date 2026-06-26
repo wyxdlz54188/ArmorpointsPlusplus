@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.resources.Identifier;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import org.joml.Matrix4f;  // ← 新增导入
 
 import dev.cheos.armorpointspp.core.SpriteInfo;
 import dev.cheos.armorpointspp.core.adapter.IPoseStack;
@@ -111,10 +112,11 @@ public class FabricRenderer implements IRenderer {
                     stack.last().pose(), Minecraft.getInstance().renderBuffers().bufferSource(),
                     Font.DisplayMode.NORMAL, 0, 15728880);
         } else {
+            // 使用单位矩阵代替 null
+            Matrix4f identityMatrix = new Matrix4f().identity();  // ← 创建单位矩阵
             gui.getFont().drawInBatch(text, x, y, color, shadow,
-                    null, Minecraft.getInstance().renderBuffers().bufferSource(),
-                    Font.DisplayMode.NORMAL, 0, 15728880,  // ← 这里加逗号
-                    0);  // ← 新增第10个参数
+                    identityMatrix, Minecraft.getInstance().renderBuffers().bufferSource(),
+                    Font.DisplayMode.NORMAL, 0, 15728880);
         }
     }
 
@@ -122,9 +124,4 @@ public class FabricRenderer implements IRenderer {
     public int width(Object... objs) {
         if (objs == null || objs.length == 0) return 0;
         StringBuilder sb = new StringBuilder();
-        for (Object obj : objs) {
-            sb.append(String.valueOf(obj));
-        }
-        return gui.getFont().width(sb.toString());
-    }
-}
+        for (Object obj : ob
