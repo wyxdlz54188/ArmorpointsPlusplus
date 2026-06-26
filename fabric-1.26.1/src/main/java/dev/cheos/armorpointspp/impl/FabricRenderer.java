@@ -103,19 +103,15 @@ public class FabricRenderer implements IRenderer {
 
     @Override
     public void text(IPoseStack poseStack, String text, float x, float y, int color, TextRenderType renderType, boolean shadow) {
-        PoseStack ps = (PoseStack) poseStack.getPoseStack();
-        gui.getFont().drawInBatch(text, x, y, color, shadow,
-                ps.last().pose(), Minecraft.getInstance().renderBuffers().bufferSource(),
-                Font.DisplayMode.NORMAL, 0, 15728880);
-    }
-
-    @Override
-    public int width(Object... objs) {
-        if (objs == null || objs.length == 0) return 0;
-        StringBuilder sb = new StringBuilder();
-        for (Object obj : objs) {
-            sb.append(String.valueOf(obj));
-        }
-        return gui.getFont().width(sb.toString());
-    }
-}
+        Object ps = poseStack.getPoseStack();
+        
+        if (ps instanceof PoseStack) {
+            // 普通渲染路径 (PoseStack)
+            PoseStack stack = (PoseStack) ps;
+            gui.getFont().drawInBatch(text, x, y, color, shadow,
+                    stack.last().pose(), Minecraft.getInstance().renderBuffers().bufferSource(),
+                    Font.DisplayMode.NORMAL, 0, 15728880);
+        } else {
+            // HUD渲染路径 (Matrix3x2fStack 或其他) — 不需要3D变换矩阵
+            gui.getFont().drawInBatch(text, x, y, color, shadow,
+  

@@ -1,0 +1,1049 @@
+================================================================================
+【项目树形结构】
+================================================================================
+📁 fabric-1.26.1
+│   📁 src
+│       📁 main
+│       │   📁 java
+│       │       📁 dev
+│       │           📁 cheos
+│       │               📁 armorpointspp
+│       │                   📁 impl
+│       │                   ├── 📄 FabricClientModInitializer.java
+│       │                   ├── 📄 FabricConfig.java
+│       │                   ├── 📄 FabricDataProvider.java
+│       │                   ├── 📄 FabricEffectProvider.java
+│       │                   ├── 📄 FabricEnchantment.java
+│       │                   ├── 📄 FabricEnchantmentHelper.java
+│       │                   ├── 📄 FabricEnchantmentProvider.java
+│       │                   ├── 📄 FabricItemStack.java
+│       │                   ├── 📄 FabricMobEffect.java
+│       │                   ├── 📄 FabricMobEffectInstance.java
+│       │                   ├── 📄 FabricModInitializer.java
+│       │                   ├── 📄 FabricPoseStack.java
+│       │                   ├── 📄 FabricProfiler.java
+│       │                   ├── 📄 FabricRenderer.java
+│       │                   └── 📄 FabricResourceLocation.java
+│           📁 resources
+│           └── 📄 fabric.mod.json
+└── 📄 build.gradle
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/fabric-1.26.1/build.gradle
+项目内路径：/build.gradle
+文件名：build.gradle
+文件大小：893 字节
+================================================================================
+文件内容：
+plugins {
+    id 'java'
+    id 'net.fabricmc.fabric-loom' version '1.14.10'
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
+
+base {
+    archivesName = "${rootProject.modName}-fabric-26.1"
+}
+
+version = rootProject.modVersion
+group  = rootProject.modGroup
+
+repositories {
+    maven { url = 'https://maven.fabricmc.net/' }
+}
+
+dependencies {
+    minecraft "net.minecraft:minecraft:26.1.1"
+
+    implementation "net.fabricmc:fabric-loader:0.19.3"
+    implementation "net.fabricmc.fabric-api:fabric-api:0.145.4+26.1.1"
+
+    implementation project(':core')
+}
+
+jar {
+    from project(':core').sourceSets.main.output
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.encoding = "UTF-8"
+    it.options.release.set(25)
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/fabric-1.26.1/src/main/java/dev/cheos/armorpointspp/impl/FabricClientModInitializer.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/impl/FabricClientModInitializer.java
+文件名：FabricClientModInitializer.java
+文件大小：2746 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.impl;
+
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement;
+import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
+
+import net.minecraft.client.DeltaTracker;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.resources.Identifier;
+
+import dev.cheos.armorpointspp.core.RenderContext;
+import dev.cheos.armorpointspp.core.adapter.IMath;
+import dev.cheos.armorpointspp.core.render.Components;
+
+public class FabricClientModInitializer implements ClientModInitializer {
+    private static final Identifier APPP_ID = Identifier.fromNamespaceAndPath("armorpointspp", "hud");
+    private final FabricConfig config = new FabricConfig();
+
+    @Override
+    public void onInitializeClient() {
+        HudElementRegistry.addLast(APPP_ID, new HudElement() {
+            @Override
+            public void extractRenderState(GuiGraphicsExtractor guiGraphics, DeltaTracker deltaTracker) {
+                Minecraft minecraft = Minecraft.getInstance();
+                if (minecraft.player == null || minecraft.options.hideGui) return;
+
+                FabricPoseStack poseStack = new FabricPoseStack(guiGraphics.pose());
+                FabricDataProvider data = new FabricDataProvider(minecraft, minecraft.player);
+                FabricRenderer renderer = new FabricRenderer(minecraft.gui);
+                renderer.setGuiGraphics(guiGraphics);
+
+                RenderContext ctx = new RenderContext(
+                    config, data,
+                    new FabricEnchantmentHelper(),
+                    IMath.INSTANCE,
+                    renderer, poseStack,
+                    FabricProfiler.empty(),
+                    0, 0
+                );
+
+                if (!ctx.shouldRender()) return;
+
+                renderer.setupAppp();
+
+                Components.ARMOR.render(ctx);
+                Components.HEALTH.render(ctx);
+                Components.TOUGHNESS.render(ctx);
+                Components.ABSORPTION.render(ctx);
+                Components.ABSORPTION_OVER.render(ctx);
+                Components.TOUGHNESS_OVER.render(ctx);
+                Components.MAGIC_SHIELD.render(ctx);
+                Components.RESISTANCE.render(ctx);
+                Components.PROTECTION.render(ctx);
+                Components.VANILLA_ARMOR.render(ctx);
+                Components.ARMOR_TEXT.render(ctx);
+                Components.HEALTH_TEXT.render(ctx);
+                Components.TOUGHNESS_TEXT.render(ctx);
+                Components.DEBUG.render(ctx);
+                Components.DEBUG_TEXT.render(ctx);
+
+                renderer.setupVanilla();
+            }
+        });
+    }
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/fabric-1.26.1/src/main/java/dev/cheos/armorpointspp/impl/FabricConfig.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/impl/FabricConfig.java
+文件名：FabricConfig.java
+文件大小：5405 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.impl;
+
+import java.io.*;
+import java.util.*;
+
+import com.google.gson.*;
+
+import dev.cheos.armorpointspp.core.adapter.IConfig;
+
+public class FabricConfig implements IConfig {
+    private static final File CONFIG_FILE = new File("config/armorpointspp.json");
+    private final Map<String, Object> values = new HashMap<>();
+    private final Map<String, Object> defaults = new HashMap<>();
+    private boolean loaded = false;
+
+    private void ensureLoaded() {
+        if (loaded) return;
+        loaded = true;
+
+        // register all option defaults
+        for (BooleanOption opt : BooleanOption.values()) {
+            defaults.put(opt.key(), opt.def());
+            if (!values.containsKey(opt.key())) values.put(opt.key(), opt.def());
+        }
+        for (IntegerOption opt : IntegerOption.values()) {
+            defaults.put(opt.key(), opt.def());
+            if (!values.containsKey(opt.key())) values.put(opt.key(), opt.def());
+        }
+        for (HexOption opt : HexOption.values()) {
+            defaults.put(opt.key(), opt.def());
+            if (!values.containsKey(opt.key())) values.put(opt.key(), opt.def());
+        }
+        for (FloatOption opt : FloatOption.values()) {
+            defaults.put(opt.key(), opt.def());
+            if (!values.containsKey(opt.key())) values.put(opt.key(), opt.def());
+        }
+        for (StringOption opt : StringOption.values()) {
+            defaults.put(opt.key(), opt.def());
+            if (!values.containsKey(opt.key())) values.put(opt.key(), opt.def());
+        }
+        for (EnumOption<?> opt : EnumOption.values()) {
+            defaults.put(opt.key(), opt.def().name());
+            if (!values.containsKey(opt.key())) values.put(opt.key(), opt.def().name());
+        }
+
+        // load from file
+        load();
+    }
+
+    private void load() {
+        if (!CONFIG_FILE.exists()) {
+            save();
+            return;
+        }
+        try (Reader reader = new FileReader(CONFIG_FILE)) {
+            JsonObject json = JsonParser.parseReader(reader).getAsJsonObject();
+            for (Map.Entry<String, JsonElement> entry : json.entrySet()) {
+                JsonElement elem = entry.getValue();
+                if (elem.isJsonPrimitive()) {
+                    JsonPrimitive prim = elem.getAsJsonPrimitive();
+                    if (prim.isBoolean()) values.put(entry.getKey(), prim.getAsBoolean());
+                    else if (prim.isNumber()) {
+                        Number num = prim.getAsNumber();
+                        if (defaults.get(entry.getKey()) instanceof Float)
+                            values.put(entry.getKey(), num.floatValue());
+                        else
+                            values.put(entry.getKey(), num.intValue());
+                    }
+                    else if (prim.isString()) values.put(entry.getKey(), prim.getAsString());
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Failed to load config: " + e.getMessage());
+        }
+    }
+
+    private void save() {
+        CONFIG_FILE.getParentFile().mkdirs();
+        JsonObject json = new JsonObject();
+        for (Map.Entry<String, Object> entry : values.entrySet()) {
+            Object val = entry.getValue();
+            if (val instanceof Boolean) json.addProperty(entry.getKey(), (Boolean) val);
+            else if (val instanceof Integer) json.addProperty(entry.getKey(), (Integer) val);
+            else if (val instanceof Float) json.addProperty(entry.getKey(), (Float) val);
+            else if (val instanceof String) json.addProperty(entry.getKey(), (String) val);
+        }
+        try (Writer writer = new FileWriter(CONFIG_FILE)) {
+            new GsonBuilder().setPrettyPrinting().create().toJson(json, writer);
+        } catch (Exception e) {
+            System.err.println("Failed to save config: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public boolean bool(Option<Boolean> key) {
+        ensureLoaded();
+        Object val = values.get(key.key());
+        return val instanceof Boolean ? (Boolean) val : key.def();
+    }
+
+    @Override
+    public int hex(Option<Integer> key) {
+        ensureLoaded();
+        Object val = values.get(key.key());
+        return val instanceof Number ? ((Number) val).intValue() : key.def();
+    }
+
+    @Override
+    public int num(Option<Integer> key) {
+        ensureLoaded();
+        Object val = values.get(key.key());
+        return val instanceof Number ? ((Number) val).intValue() : key.def();
+    }
+
+    @Override
+    public float dec(Option<Float> key) {
+        ensureLoaded();
+        Object val = values.get(key.key());
+        return val instanceof Number ? ((Number) val).floatValue() : key.def();
+    }
+
+    @Override
+    public String str(Option<String> key) {
+        ensureLoaded();
+        Object val = values.get(key.key());
+        return val instanceof String ? (String) val : key.def();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T extends Enum<T>> T enm(Option<T> key) {
+        ensureLoaded();
+        Object val = values.get(key.key());
+        if (val instanceof String) {
+            try {
+                return Enum.valueOf(key.type(), (String) val);
+            } catch (IllegalArgumentException ignored) {}
+        }
+        return key.def();
+    }
+
+    @Override
+    public void invalidateAll() {
+        loaded = false;
+    }
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/fabric-1.26.1/src/main/java/dev/cheos/armorpointspp/impl/FabricDataProvider.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/impl/FabricDataProvider.java
+文件名：FabricDataProvider.java
+文件大小：4389 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.impl;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.Holder;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+
+import dev.cheos.armorpointspp.core.adapter.IDataProvider;
+import dev.cheos.armorpointspp.core.adapter.IEffectProvider;
+import dev.cheos.armorpointspp.core.adapter.IEnchantmentProvider;
+import dev.cheos.armorpointspp.core.adapter.IItemStack;
+import dev.cheos.armorpointspp.core.adapter.IMobEffect;
+import dev.cheos.armorpointspp.core.adapter.IMobEffectInstance;
+
+public class FabricDataProvider implements IDataProvider {
+    private final Minecraft minecraft;
+    private final Player player;
+
+    public FabricDataProvider(Minecraft minecraft, Player player) {
+        this.minecraft = minecraft;
+        this.player = player;
+    }
+
+    @Override
+    public int armor() {
+        return player.getArmorValue();
+    }
+
+    @Override
+    public int maxArmor() {
+        return (int) player.getAttributeValue(Attributes.ARMOR);
+    }
+
+    @Override
+    public double toughness() {
+        return player.getAttributeValue(Attributes.ARMOR_TOUGHNESS);
+    }
+
+    @Override
+    public double maxToughness() {
+        return player.getAttributeValue(Attributes.ARMOR_TOUGHNESS);
+    }
+
+    @Override
+    public int guiTicks() {
+        return minecraft.gui.getGuiTicks();
+    }
+
+    @Override
+    public int invulnTime() {
+        return player.invulnerableTime;
+    }
+
+    @Override
+    public long millis() {
+        return System.currentTimeMillis();
+    }
+
+    @Override
+    public float health() {
+        return player.getHealth();
+    }
+
+    @Override
+    public float maxHealth() {
+        return player.getMaxHealth();
+    }
+
+    @Override
+    public float absorption() {
+        return player.getAbsorptionAmount();
+    }
+
+    @Override
+    public float percentFrozen() {
+        return player.getPercentFrozen();
+    }
+
+    @Override
+    public IEffectProvider effects() {
+        return new FabricEffectProvider();
+    }
+
+    @Override
+    public IEnchantmentProvider enchantments() {
+        return new FabricEnchantmentProvider();
+    }
+
+    @Override
+    public boolean hidden() {
+        return player.isInvisible();
+    }
+
+    @Override
+    public boolean isPotionCoreLoaded() {
+        return false;
+    }
+
+    @Override
+    public boolean isFullyFrozen() {
+        return player.isFullyFrozen();
+    }
+
+    @Override
+    public boolean isHardcore() {
+        return minecraft.level != null && minecraft.level.getLevelData().isHardcore();
+    }
+
+    @Override
+    public boolean isEffectActive(String id) {
+        return player.getActiveEffectsMap().keySet().stream()
+                .anyMatch(effect -> effect.getRegisteredName().equals(id));
+    }
+
+    @Override
+    public boolean isEffectActive(IMobEffect effect) {
+        MobEffect mcEffect = (MobEffect) effect.getEffect();
+        return player.hasEffect(Holder.direct(mcEffect));
+    }
+
+    @Override
+    public boolean shouldDrawSurvivalElements() {
+        return minecraft.gameMode != null && minecraft.gameMode.canHurtPlayer();
+    }
+
+    @Override
+    public IMobEffectInstance getActiveEffect(IMobEffect effect) {
+        MobEffect mcEffect = (MobEffect) effect.getEffect();
+        net.minecraft.world.effect.MobEffectInstance instance =
+                player.getEffect(Holder.direct(mcEffect));
+        return instance != null ? new FabricMobEffectInstance(instance) : null;
+    }
+
+    @Override
+    public IPotionCore potionCore() {
+        return new IPotionCore() {
+            @Override
+            public double magicShield() { return 0; }
+            @Override
+            public double resistance() { return 0; }
+        };
+    }
+
+    @Override
+    public Iterable<IItemStack> armorSlots() {
+        java.util.List<IItemStack> slots = new java.util.ArrayList<>(4);
+        for (EquipmentSlot slot : new EquipmentSlot[] {
+                EquipmentSlot.FEET, EquipmentSlot.LEGS,
+                EquipmentSlot.CHEST, EquipmentSlot.HEAD}) {
+            ItemStack stack = player.getItemBySlot(slot);
+            if (!stack.isEmpty()) {
+                slots.add(new FabricItemStack(stack));
+            }
+        }
+        return slots;
+    }
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/fabric-1.26.1/src/main/java/dev/cheos/armorpointspp/impl/FabricEffectProvider.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/impl/FabricEffectProvider.java
+文件名：FabricEffectProvider.java
+文件大小：1010 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.impl;
+
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.effect.MobEffect;
+import dev.cheos.armorpointspp.core.adapter.IEffectProvider;
+import dev.cheos.armorpointspp.core.adapter.IMobEffect;
+
+public class FabricEffectProvider implements IEffectProvider {
+    @Override
+    public IMobEffect resistance() {
+        return new FabricMobEffect(getEffect("resistance"));
+    }
+
+    @Override
+    public IMobEffect regeneration() {
+        return new FabricMobEffect(getEffect("regeneration"));
+    }
+
+    @Override
+    public IMobEffect poison() {
+        return new FabricMobEffect(getEffect("poison"));
+    }
+
+    @Override
+    public IMobEffect wither() {
+        return new FabricMobEffect(getEffect("wither"));
+    }
+
+    private MobEffect getEffect(String name) {
+        return BuiltInRegistries.MOB_EFFECT.get(Identifier.withDefaultNamespace(name))
+                .orElseThrow().value();
+    }
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/fabric-1.26.1/src/main/java/dev/cheos/armorpointspp/impl/FabricEnchantment.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/impl/FabricEnchantment.java
+文件名：FabricEnchantment.java
+文件大小：480 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.impl;
+
+import net.minecraft.core.Holder;
+import net.minecraft.world.item.enchantment.Enchantment;
+import dev.cheos.armorpointspp.core.adapter.IEnchantment;
+
+public class FabricEnchantment implements IEnchantment {
+    private final Enchantment enchantment;
+
+    public FabricEnchantment(Enchantment enchantment) {
+        this.enchantment = enchantment;
+    }
+
+    @Override
+    public Object getEnchantment() {
+        return enchantment;
+    }
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/fabric-1.26.1/src/main/java/dev/cheos/armorpointspp/impl/FabricEnchantmentHelper.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/impl/FabricEnchantmentHelper.java
+文件名：FabricEnchantmentHelper.java
+文件大小：390 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.impl;
+
+import dev.cheos.armorpointspp.core.adapter.IEnchantment;
+import dev.cheos.armorpointspp.core.adapter.IEnchantmentHelper;
+import dev.cheos.armorpointspp.core.adapter.IItemStack;
+
+public class FabricEnchantmentHelper implements IEnchantmentHelper {
+    @Override
+    public int getLevel(IEnchantment ench, IItemStack stack) {
+        return 0;
+    }
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/fabric-1.26.1/src/main/java/dev/cheos/armorpointspp/impl/FabricEnchantmentProvider.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/impl/FabricEnchantmentProvider.java
+文件名：FabricEnchantmentProvider.java
+文件大小：581 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.impl;
+
+import dev.cheos.armorpointspp.core.adapter.IEnchantment;
+import dev.cheos.armorpointspp.core.adapter.IEnchantmentProvider;
+
+public class FabricEnchantmentProvider implements IEnchantmentProvider {
+    @Override
+    public IEnchantment protection() {
+        return null;
+    }
+
+    @Override
+    public IEnchantment blastProtection() {
+        return null;
+    }
+
+    @Override
+    public IEnchantment fireProtection() {
+        return null;
+    }
+
+    @Override
+    public IEnchantment projectileProtection() {
+        return null;
+    }
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/fabric-1.26.1/src/main/java/dev/cheos/armorpointspp/impl/FabricItemStack.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/impl/FabricItemStack.java
+文件名：FabricItemStack.java
+文件大小：384 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.impl;
+
+import net.minecraft.world.item.ItemStack;
+import dev.cheos.armorpointspp.core.adapter.IItemStack;
+
+public class FabricItemStack implements IItemStack {
+    private final ItemStack stack;
+
+    public FabricItemStack(ItemStack stack) {
+        this.stack = stack;
+    }
+
+    @Override
+    public Object getStack() {
+        return stack;
+    }
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/fabric-1.26.1/src/main/java/dev/cheos/armorpointspp/impl/FabricMobEffect.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/impl/FabricMobEffect.java
+文件名：FabricMobEffect.java
+文件大小：448 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.impl;
+
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.effect.MobEffect;
+import dev.cheos.armorpointspp.core.adapter.IMobEffect;
+
+public class FabricMobEffect implements IMobEffect {
+    private final MobEffect effect;
+
+    public FabricMobEffect(MobEffect effect) {
+        this.effect = effect;
+    }
+
+    @Override
+    public Object getEffect() {
+        return effect;
+    }
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/fabric-1.26.1/src/main/java/dev/cheos/armorpointspp/impl/FabricMobEffectInstance.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/impl/FabricMobEffectInstance.java
+文件名：FabricMobEffectInstance.java
+文件大小：734 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.impl;
+
+import net.minecraft.world.effect.MobEffectInstance;
+import dev.cheos.armorpointspp.core.adapter.IMobEffect;
+import dev.cheos.armorpointspp.core.adapter.IMobEffectInstance;
+
+public class FabricMobEffectInstance implements IMobEffectInstance {
+    private final MobEffectInstance instance;
+
+    public FabricMobEffectInstance(MobEffectInstance instance) {
+        this.instance = instance;
+    }
+
+    @Override
+    public int amplifier() {
+        return instance.getAmplifier();
+    }
+
+    @Override
+    public int duration() {
+        return instance.getDuration();
+    }
+
+    @Override
+    public IMobEffect effect() {
+        return new FabricMobEffect(instance.getEffect().value());
+    }
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/fabric-1.26.1/src/main/java/dev/cheos/armorpointspp/impl/FabricModInitializer.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/impl/FabricModInitializer.java
+文件名：FabricModInitializer.java
+文件大小：290 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.impl;
+
+import net.fabricmc.api.ModInitializer;
+
+public class FabricModInitializer implements ModInitializer {
+    @Override
+    public void onInitialize() {
+        // Common initialization
+        dev.cheos.armorpointspp.core.VanillaSprites.init();
+    }
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/fabric-1.26.1/src/main/java/dev/cheos/armorpointspp/impl/FabricPoseStack.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/impl/FabricPoseStack.java
+文件名：FabricPoseStack.java
+文件大小：1456 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.impl;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+import org.joml.Matrix3x2fStack;
+
+import dev.cheos.armorpointspp.core.adapter.IPoseStack;
+
+public class FabricPoseStack implements IPoseStack {
+    private final PoseStack poseStack;
+    private final Matrix3x2fStack matrixStack;
+
+    public FabricPoseStack(PoseStack poseStack) {
+        this.poseStack = poseStack;
+        this.matrixStack = null;
+    }
+
+    public FabricPoseStack(Matrix3x2fStack matrixStack) {
+        this.matrixStack = matrixStack;
+        this.poseStack = null;
+    }
+
+    @Override
+    public void pushPose() {
+        if (poseStack != null) poseStack.pushPose();
+        else if (matrixStack != null) matrixStack.pushMatrix();
+    }
+
+    @Override
+    public void popPose() {
+        if (poseStack != null) poseStack.popPose();
+        else if (matrixStack != null) matrixStack.popMatrix();
+    }
+
+    @Override
+    public void scale(float x, float y, float z) {
+        if (poseStack != null) poseStack.scale(x, y, z);
+        else if (matrixStack != null) matrixStack.scale(x, y);
+    }
+
+    @Override
+    public void translate(double x, double y, double z) {
+        if (poseStack != null) poseStack.translate(x, y, z);
+        else if (matrixStack != null) matrixStack.translate((float) x, (float) y);
+    }
+
+    @Override
+    public Object getPoseStack() {
+        if (poseStack != null) return poseStack;
+        return matrixStack;
+    }
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/fabric-1.26.1/src/main/java/dev/cheos/armorpointspp/impl/FabricProfiler.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/impl/FabricProfiler.java
+文件名：FabricProfiler.java
+文件大小：811 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.impl;
+
+import net.minecraft.util.profiling.ProfilerFiller;
+import dev.cheos.armorpointspp.core.adapter.IProfiler;
+
+public class FabricProfiler implements IProfiler {
+    private final ProfilerFiller profiler;
+
+    public FabricProfiler(ProfilerFiller profiler) {
+        this.profiler = profiler;
+    }
+
+    @Override
+    public void push(String s) {
+        profiler.push(s);
+    }
+
+    @Override
+    public void pop() {
+        profiler.pop();
+    }
+
+    @Override
+    public void popPush(String s) {
+        profiler.popPush(s);
+    }
+
+    public static IProfiler empty() {
+        return new IProfiler() {
+            @Override public void push(String s) {}
+            @Override public void pop() {}
+            @Override public void popPush(String s) {}
+        };
+    }
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/fabric-1.26.1/src/main/java/dev/cheos/armorpointspp/impl/FabricRenderer.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/impl/FabricRenderer.java
+文件名：FabricRenderer.java
+文件大小：4237 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.impl;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.resources.Identifier;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+
+import dev.cheos.armorpointspp.core.SpriteInfo;
+import dev.cheos.armorpointspp.core.adapter.IPoseStack;
+import dev.cheos.armorpointspp.core.adapter.IRenderer;
+import dev.cheos.armorpointspp.core.texture.ITextureSheet;
+
+public class FabricRenderer implements IRenderer {
+    private final Gui gui;
+    private GuiGraphicsExtractor guiGraphics;
+    private Identifier currentTexture;
+
+    public FabricRenderer(Gui gui) {
+        this.gui = gui;
+    }
+
+    public void setGuiGraphics(GuiGraphicsExtractor guiGraphics) {
+        this.guiGraphics = guiGraphics;
+    }
+
+    @Override
+    public void blit(IPoseStack poseStack, int x, int y, float u, float v, int width, int height, int texWidth, int texHeight) {
+        if (this.guiGraphics != null && this.currentTexture != null) {
+            this.guiGraphics.blit(
+                RenderPipelines.GUI_TEXTURED,
+                this.currentTexture,
+                x, y, u, v, width, height, texWidth, texHeight
+            );
+        }
+    }
+
+    @Override
+    public void blit(IPoseStack poseStack, int x, int y, float u, float v, int width, int height) {
+        blit(poseStack, x, y, u, v, width, height, 256, 256);
+    }
+
+    @Override
+    public void blitSprite(IPoseStack poseStack, int x, int y, int width, int height, SpriteInfo sprite) {
+        if (this.guiGraphics != null) {
+            Identifier tex = Identifier.tryParse(sprite.location());
+            if (tex != null) {
+                this.guiGraphics.blit(
+                    RenderPipelines.GUI_TEXTURED,
+                    tex,
+                    x, y, sprite.u(), sprite.v(),
+                    width, height, 256, 256
+                );
+            }
+        }
+    }
+
+    @Override
+    public void blitSprite(IPoseStack poseStack, int x, int y, int width, int height, SpriteInfo sprite, int uOffset, int vOffset, int spriteWidth, int spriteHeight) {
+        blit(poseStack, x, y, sprite.u() + uOffset, sprite.v() + vOffset, width, height, spriteWidth, spriteHeight);
+    }
+
+    @Override
+    public void blitM(IPoseStack poseStack, int x, int y, float u, float v, int width, int height, int texWidth, int texHeight) {
+        if (this.guiGraphics != null && this.currentTexture != null) {
+            this.guiGraphics.blit(
+                RenderPipelines.GUI_TEXTURED,
+                this.currentTexture,
+                x + width, y, -(u + width), v, width, height, texWidth, texHeight
+            );
+        }
+    }
+
+    @Override
+    public void blitM(IPoseStack poseStack, int x, int y, float u, float v, int width, int height) {
+        blitM(poseStack, x, y, u, v, width, height, 256, 256);
+    }
+
+    @Override
+    public void setColor(float r, float g, float b, float a) {
+    }
+
+    @Override
+    public void setupAppp() {
+    }
+
+    @Override
+    public void setupTexture(ITextureSheet texSheet) {
+        currentTexture = Identifier.tryParse(texSheet.texLocation());
+    }
+
+    @Override
+    public void setupVanilla() {
+    }
+
+    @Override
+    public void text(IPoseStack poseStack, String text, float x, float y, int color, TextRenderType renderType) {
+        text(poseStack, text, x, y, color, renderType, false);
+    }
+
+    @Override
+    public void text(IPoseStack poseStack, String text, float x, float y, int color, TextRenderType renderType, boolean shadow) {
+        PoseStack ps = (PoseStack) poseStack.getPoseStack();
+        gui.getFont().drawInBatch(text, x, y, color, shadow,
+                ps.last().pose(), Minecraft.getInstance().renderBuffers().bufferSource(),
+                Font.DisplayMode.NORMAL, 0, 15728880);
+    }
+
+    @Override
+    public int width(Object... objs) {
+        if (objs == null || objs.length == 0) return 0;
+        StringBuilder sb = new StringBuilder();
+        for (Object obj : objs) {
+            sb.append(String.valueOf(obj));
+        }
+        return gui.getFont().width(sb.toString());
+    }
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/fabric-1.26.1/src/main/java/dev/cheos/armorpointspp/impl/FabricResourceLocation.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/impl/FabricResourceLocation.java
+文件名：FabricResourceLocation.java
+文件大小：440 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.impl;
+
+import net.minecraft.resources.Identifier;
+import dev.cheos.armorpointspp.core.adapter.IResourceLocation;
+
+public class FabricResourceLocation implements IResourceLocation {
+    private final Identifier location;
+
+    public FabricResourceLocation(Identifier location) {
+        this.location = location;
+    }
+
+    @Override
+    public Object getResourceLocation() {
+        return location;
+    }
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/fabric-1.26.1/src/main/resources/fabric.mod.json
+项目内路径：/src/main/resources/fabric.mod.json
+文件名：fabric.mod.json
+文件大小：624 字节
+================================================================================
+文件内容：
+{
+  "schemaVersion": 1,
+  "id": "armorpointspp",
+  "version": "${version}",
+  "name": "ArmorPointsPP",
+  "description": "Enhanced health and armor rendering for Minecraft",
+  "authors": [
+    "Cheos"
+  ],
+  "contact": {
+    "homepage": "https://github.com/cheos/armorpointspp"
+  },
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "dev.cheos.armorpointspp.impl.FabricClientModInitializer"
+    ],
+    "main": [
+      "dev.cheos.armorpointspp.impl.FabricModInitializer"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.3",
+    "minecraft": "~26.1.1",
+    "fabric-api": ">=0.145.4"
+  }
+}
+
+【该文件结束】
+
+整合完成！总共处理 17 个文件。

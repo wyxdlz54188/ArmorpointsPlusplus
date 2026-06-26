@@ -1,0 +1,3000 @@
+================================================================================
+【项目树形结构】
+================================================================================
+📁 core
+│   📁 src
+│       📁 main
+│       │   📁 java
+│       │       📁 dev
+│       │           📁 cheos
+│       │               📁 armorpointspp
+│       │                   📁 core
+│       │                   │   📁 adapter
+│       │                   │   ├── 📄 IConfig.java
+│       │                   │   ├── 📄 IDataProvider.java
+│       │                   │   ├── 📄 IEffectProvider.java
+│       │                   │   ├── 📄 IEnchantment.java
+│       │                   │   ├── 📄 IEnchantmentHelper.java
+│       │                   │   ├── 📄 IEnchantmentProvider.java
+│       │                   │   ├── 📄 IItemStack.java
+│       │                   │   ├── 📄 IMath.java
+│       │                   │   ├── 📄 IMobEffect.java
+│       │                   │   ├── 📄 IMobEffectInstance.java
+│       │                   │   ├── 📄 IPoseStack.java
+│       │                   │   ├── 📄 IProfiler.java
+│       │                   │   ├── 📄 IRenderer.java
+│       │                   │   └── 📄 IResourceLocation.java
+│       │                   │   📁 render
+│       │                   │   ├── 📄 AbsorptionComponent.java
+│       │                   │   ├── 📄 AbsorptionOverlayComponent.java
+│       │                   │   ├── 📄 ArmorComponent.java
+│       │                   │   ├── 📄 ArmorTextComponent.java
+│       │                   │   ├── 📄 Components.java
+│       │                   │   ├── 📄 DebugComponent.java
+│       │                   │   ├── 📄 DebugTextComponent.java
+│       │                   │   ├── 📄 HealthComponent.java
+│       │                   │   ├── 📄 HealthTextComponent.java
+│       │                   │   ├── 📄 MagicShieldComponent.java
+│       │                   │   ├── 📄 ProtectionComponent.java
+│       │                   │   ├── 📄 ResistanceComponent.java
+│       │                   │   ├── 📄 TablistScoreComponent.java
+│       │                   │   ├── 📄 ToughnessComponent.java
+│       │                   │   ├── 📄 ToughnessOverlayComponent.java
+│       │                   │   ├── 📄 ToughnessTextComponent.java
+│       │                   │   └── 📄 VanillaArmorComponent.java
+│       │                   │   📁 texture
+│       │                   │   ├── 📄 ITextureSheet.java
+│       │                   │   ├── 📄 StandardTextureSheet.java
+│       │                   │   └── 📄 VanillaTextureSheet.java
+│       │                   ├── 📄 EnableState.java
+│       │                   ├── 📄 FrostbiteStyle.java
+│       │                   ├── 📄 IRenderComponent.java
+│       │                   ├── 📄 ReflectionHelper.java
+│       │                   ├── 📄 RenderableText.java
+│       │                   ├── 📄 RenderContext.java
+│       │                   ├── 📄 Side.java
+│       │                   ├── 📄 SpriteInfo.java
+│       │                   ├── 📄 Suffix.java
+│       │                   └── 📄 VanillaSprites.java
+│           📁 resources
+│           │   📁 assets
+│           │       📁 armorpointspp
+│           │       │   📁 textures
+│           │       │       📁 gui
+│           │       │       ├── ⛔ hallow.png
+│           │       │       └── ⛔ icons.png
+│           │       └── ⛔ icon.png
+│           ├── ⛔ icon.png
+│           └── 📄 LICENSE
+└── 📄 build.gradle
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/build.gradle
+项目内路径：/build.gradle
+文件名：build.gradle
+文件大小：744 字节
+================================================================================
+文件内容：
+plugins {
+	id 'java'
+	id 'eclipse'
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
+
+version = rootProject.modVersion
+group  = rootProject.modGroup
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compileOnly "com.google.guava:guava:31.0.1-jre"
+}
+
+jar {
+    manifest {
+        attributes([
+            "Specification-Title": "armorpointspp",
+            "Specification-Vendor": "Cheos",
+            "Specification-Version": "1", // We are version 1 of ourselves
+            "Implementation-Title": project.name,
+            "Implementation-Version": project.jar.archiveVersion,
+            "Implementation-Vendor" : "Cheos",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/EnableState.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/EnableState.java
+文件名：EnableState.java
+文件大小：91 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core;
+
+public enum EnableState {
+	ALWAYS,
+	NEVER,
+	AUTO;
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/FrostbiteStyle.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/FrostbiteStyle.java
+文件名：FrostbiteStyle.java
+文件大小：94 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core;
+
+public enum FrostbiteStyle {
+	FULL,
+	ICON,
+	OVERLAY;
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/IRenderComponent.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/IRenderComponent.java
+文件名：IRenderComponent.java
+文件大小：541 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core;
+
+import java.util.Random;
+
+import dev.cheos.armorpointspp.core.texture.ITextureSheet;
+
+public interface IRenderComponent {
+	static final Random RANDOM = new Random();
+	default Random random() { return RANDOM; }
+	default ITextureSheet tex(RenderContext ctx) { return ITextureSheet.currentSheet(ctx); }
+	default boolean popReturn(RenderContext ctx, boolean ret) { ctx.profiler.pop(); return ret; }
+	
+	/**
+	 * @return true if the component did render, else false
+	 */
+	boolean render(RenderContext ctx);
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/ReflectionHelper.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/ReflectionHelper.java
+文件名：ReflectionHelper.java
+文件大小：5313 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+
+public class ReflectionHelper {
+	/**
+	 * <class name>#<field name>
+	 */
+	public static <T, V> void setPrivateValue(String identifier, V value) throws ClassNotFoundException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		setPrivateValue(identifier, null, value);
+	}
+	
+	/**
+	 * <class name>#<field name>
+	 */
+	public static <T, V> void setPrivateValue(String identifier, T of, V value) throws ClassNotFoundException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		String[] parts = identifier.split("#", 2);
+		setPrivateValue(parts[0], parts[1], of, value);
+	}
+	
+	public static <T, V> void setPrivateValue(String clazz, String name, V value) throws ClassNotFoundException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		setPrivateValue(clazz, name, null, value);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T, V> void setPrivateValue(String clazz, String name, T of, V value) throws ClassNotFoundException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		setPrivateValue((Class<T>) Class.forName(clazz), name, of, value);
+	}
+	
+	public static <T, V> void setPrivateValue(Class<T> clazz, String name, V value) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		setPrivateValue(clazz, name, null, value);
+	}
+	
+	public static <T, V> void setPrivateValue(Class<T> clazz, String name, T of, V value) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		Field field = findField(clazz, name);
+		boolean fin = isFinal(field);
+		if (fin) unfinalize(field);
+		field.set(of, value);
+		if (fin) finalize(field);
+	}
+	
+	/**
+	 * <class name>#<field name>
+	 */
+	public static <T, V> V getPrivateValue(String identifier) throws ClassNotFoundException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		return getPrivateValue(identifier, null);
+	}
+	
+	/**
+	 * <class name>#<field name>
+	 */
+	public static <T, V> V getPrivateValue(String identifier, T of) throws ClassNotFoundException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		String[] parts = identifier.split("#", 2);
+		return getPrivateValue(parts[0], parts[1], of);
+	}
+	
+	public static <T, V> V getPrivateValue(String clazz, String name) throws ClassNotFoundException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		return getPrivateValue(clazz, name, null);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T, V> V getPrivateValue(String clazz, String name, T of) throws ClassNotFoundException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		return getPrivateValue((Class<T>) Class.forName(clazz), name, of);
+	}
+	
+	public static <T, V> V getPrivateValue(Class<T> clazz, String name) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		return getPrivateValue(clazz, name, null);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T, V> V getPrivateValue(Class<T> clazz, String name, T of) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		Field field = findField(clazz, name);
+		return (V) field.get(of);
+	}
+	
+	public static <T, V> V getPrivateValueDirect(Class<T> clazz, String name) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		return getPrivateValueDirect(clazz, name, null);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T, V> V getPrivateValueDirect(Class<T> clazz, String name, T of) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		Field field = clazz.getDeclaredField(name);
+		field.setAccessible(true);
+		return (V) field.get(of);
+	}
+	
+	public static Field findField(Class<?> clazz, String name) throws NoSuchFieldException, SecurityException {
+		NoSuchFieldException ex = null;
+		Field field = null;
+		while (field == null)
+			try {
+				field = clazz.getDeclaredField(name);
+			} catch (NoSuchFieldException e) {
+				if (ex == null)
+					ex = e;
+				if (clazz == Object.class)
+					throw ex;
+				clazz = clazz.getSuperclass();
+			}
+		// no chance this is null now - if the field couldn't be found, an exception will be thrown
+		field.setAccessible(true);
+		return field;
+	}
+	
+	public static Field unfinalize(Field field) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		Field modifiers = findField(Field.class, "modifiers");
+		modifiers.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+		return field;
+	}
+	
+	public static Field finalize(Field field) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		Field modifiers = findField(Field.class, "modifiers");
+		modifiers.setInt(field, field.getModifiers() | Modifier.FINAL);
+		return field;
+	}
+	
+	public static boolean isFinal(Field field) {
+		return (field.getModifiers() & Modifier.FINAL) != 0;
+	}
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/RenderContext.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/RenderContext.java
+文件名：RenderContext.java
+文件大小：1874 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Consumer;
+
+import dev.cheos.armorpointspp.core.adapter.*;
+import dev.cheos.armorpointspp.core.adapter.IConfig.BooleanOption;
+
+public class RenderContext {
+	public final IConfig config;
+	public final IDataProvider data;
+	public final IEnchantmentHelper ench;
+	public final IMath math;
+	public final IRenderer renderer;
+	public final IPoseStack poseStack;
+	public final IProfiler profiler;
+	public final int x, y;
+	private Map<String, Object> properties; // lazyinit
+	
+	public RenderContext(IConfig config, IDataProvider data, IEnchantmentHelper ench, IMath math, IRenderer renderer, IPoseStack poseStack, IProfiler profiler, int x, int y) {
+		this.config = config;
+		this.data   = data;
+		this.ench   = ench;
+		this.math   = math;
+		this.renderer  = renderer;
+		this.poseStack = poseStack;
+		this.profiler  = profiler;
+		this.x = x;
+		this.y = y;
+	}
+	
+	private void putProperty0(String id, Object obj) {
+		if (this.properties == null) this.properties = new HashMap<>();
+		this.properties.put(id, obj);
+	}
+	
+	public <T> void putProperty(String id, T t) { putProperty0(id, t); }
+	public <T> void putProperty(String id, Consumer<T> consumer) { putProperty0(id, consumer); } // add more of these as needed
+	
+	@SuppressWarnings("unchecked")
+	public <T> T property(String id) {
+		return this.properties == null ? null : (T) this.properties.get(id);
+	}
+	
+	public boolean shouldRender() {
+		return !this.data.hidden() && this.data.shouldDrawSurvivalElements();
+	}
+	
+	public boolean shouldRenderArmor() {
+		return shouldRender() && (this.data.armor() > 0 || this.config.bool(BooleanOption.ARMOR_SHOW_ON_0));
+	}
+	
+	public boolean shouldRenderToughness() {
+		return shouldRender() && (this.data.toughness() > 0 || this.config.bool(BooleanOption.TOUGHNESS_SHOW_ON_0));
+	}
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/RenderableText.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/RenderableText.java
+文件名：RenderableText.java
+文件大小：4238 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import dev.cheos.armorpointspp.core.adapter.IPoseStack;
+import dev.cheos.armorpointspp.core.adapter.IRenderer;
+import dev.cheos.armorpointspp.core.adapter.IRenderer.TextRenderType;
+
+public class RenderableText {
+	public static final RenderableText EMPTY = new RenderableText("");
+	public static final RenderableText SPACE = new RenderableText(" ");
+	
+	private RenderableText parent;
+	private float padLeft, padRight;
+	private final String text;
+	private final Properties properties = new Properties();
+	private final List<RenderableText> children = new ArrayList<>();
+
+	public RenderableText(Object text) { this.text = String.valueOf(text); }
+	public RenderableText(String text) { this.text = text; }
+	
+	public RenderableText append(RenderableText text) {
+		if (text == EMPTY || text.text.isEmpty())
+			return this;
+		text.parent = this;
+		this.children.add(text);
+		return this;
+	}
+	
+	public RenderableText withShadow(boolean shadow) {
+		this.properties.shadow.set(shadow);
+		return this;
+	}
+	
+	public RenderableText withColor(int color) {
+		this.properties.color.set(color);
+		return this;
+	}
+	
+	public RenderableText withAlignment(Alignment alignment) {
+		if (this.parent != null) {
+			this.parent.withAlignment(alignment);
+			return this;
+		}
+
+		this.properties.alignment.set(alignment);
+		return this;
+	}
+	
+	public RenderableText pad(float padding) {
+		this.padLeft  = padding;
+		this.padRight = padding;
+		return this;
+	}
+	
+	public RenderableText padLeft(float padLeft) {
+		this.padLeft = padLeft;
+		return this;
+	}
+	
+	public RenderableText padRight(float padRight) {
+		this.padRight = padRight;
+		return this;
+	}
+	
+	public boolean hasShadow() {
+		return this.properties.shadow.get(this.parent != null ? this.parent.hasShadow() : true);
+	}
+	
+	public int getColor() {
+		return this.properties.color.get(this.parent != null ? this.parent.getColor() : 0xffffff);
+	}
+	
+	public Alignment getOrientation() {
+		return this.parent != null ? this.parent.getOrientation() : this.properties.alignment.get(Alignment.LEFT);
+	}
+	
+	private float width(IRenderer renderer) {
+		float w = renderer.width(this.text) + this.padLeft + this.padRight;
+		for (RenderableText t : this.children)
+			w += t.width(renderer);
+		return w;
+	}
+	
+	
+	public void render(IPoseStack poseStack, IRenderer renderer, float x, float y) {
+		if (this.parent != null) {
+			this.parent.render(poseStack, renderer, x, y);
+			return;
+		}
+		draw(poseStack, renderer, new Position(x, y));
+	}
+	
+	protected void draw(IPoseStack poseStack, IRenderer renderer, Position pos) {
+		if (this.parent == null)
+			switch (getOrientation()) {
+				case LEFT:
+					break;
+				case CENTER:
+					pos.x -= width(renderer) / 2;
+					break;
+				case RIGHT:
+					pos.x -= width(renderer);
+					break;
+			}
+		
+		renderer.text(poseStack, this.text, pos.x + this.padLeft, pos.y, getColor(), TextRenderType.TEXT, hasShadow());
+		pos.x += renderer.width(this.text) + this.padLeft + this.padRight;
+		this.children.forEach(c -> c.draw(poseStack, renderer, pos));
+	}
+	
+	@Override
+	public String toString() {
+		String text = this.text;
+		for (RenderableText t : this.children)
+			text += t.toString();
+		return text;
+	}
+	
+	
+	/**
+	 * needed to guarantee mutability for x and y coordinates
+	 */
+	private static final class Position {
+		private float x, y;
+		private Position(float x, float y) { this.x = x; this.y = y; }
+	}
+	
+	private static final class Properties {
+		private final PropertyState<Boolean>   shadow    = new PropertyState<>();
+		private final PropertyState<Integer>   color     = new PropertyState<>();
+		private final PropertyState<Alignment> alignment = new PropertyState<>();
+		
+		private static final class PropertyState<T> {
+			private boolean set;
+			private T value;
+			
+			private PropertyState() { this.set = false; }
+			
+			private PropertyState(T value) {
+				this.set = value != null;
+				this.value = this.set ? value : null;
+			}
+			
+			private void set(T value) {
+				this.set = value != null;
+				this.value = this.set ? value : null;
+			}
+			
+			private T get(T def) {
+				return this.set ? this.value : def;
+			}
+		}
+	}
+	
+	public static enum Alignment {
+		LEFT,
+		CENTER,
+		RIGHT;
+	}
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/Side.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/Side.java
+文件名：Side.java
+文件大小：407 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core;
+
+import dev.cheos.armorpointspp.core.RenderableText.Alignment;
+
+public enum Side {
+	RIGHT(Alignment.LEFT),
+	LEFT(Alignment.RIGHT);
+	
+	private final Alignment preferredTextAlignment;
+	Side(Alignment preferredTextAlignment) {
+		this.preferredTextAlignment = preferredTextAlignment;
+	}
+	
+	public Alignment preferredAlignment() {
+		return this.preferredTextAlignment;
+	}
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/SpriteInfo.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/SpriteInfo.java
+文件名：SpriteInfo.java
+文件大小：630 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class SpriteInfo {
+	private static final Map<Integer, SpriteInfo> UV_LOOKUP = new HashMap<>();
+	
+	private final String location;
+	private final int u, v;
+	
+	public SpriteInfo(String location, int u, int v) {
+		this.location = location;
+		this.u = u;
+		this.v = v;
+		UV_LOOKUP.put((u << 16) | v, this);
+	}
+	
+	public String location() {
+		return this.location;
+	}
+	
+	public int u() {
+		return this.u;
+	}
+	
+	public int v() {
+		return this.v;
+	}
+	
+	public static SpriteInfo byUV(int u, int v) {
+		return UV_LOOKUP.get((u << 16) | v);
+	}
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/Suffix.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/Suffix.java
+文件名：Suffix.java
+文件大小：1135 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core;
+
+public enum Suffix {
+	NONE ( 0, "" , ""      , ""       ),
+	KILO ( 3, "k", " Tsd." , " thous."),
+	MEGA ( 6, "M", " Mio." , " mio."  ),
+	GIGA ( 9, "G", " Mrd." , " bio."  ),
+	TERA (12, "T", " Bio." , " trio." ),
+	PETA (15, "P", " Brd." , " quad." ),
+	EXA  (18, "E", " Trio.", " quint."),
+	ZETTA(21, "Z", " Trd." , " sext." ),
+	YOTTA(24, "Y", " Quad.", " sept." );
+	
+	public final int pow;
+	public final String si;
+	public final String ger;
+	public final String eng;
+	
+	Suffix(int pow, String si, String ger, String eng) {
+		this.pow = pow;
+		this.si  = si ;
+		this.ger = ger;
+		this.eng = eng;
+	}
+	
+	public String getSuffix(Type type) {
+		switch(type) {
+			case SI:
+				return si ;
+			case GER:
+				return ger;
+			case ENG:
+				return eng;
+			default:
+				return si ;
+		}
+	}
+	
+	public static Suffix byPow(int pow) {
+		for(Suffix pre : values())
+			if(pre.pow == pow)
+				return pre;
+		return NONE;
+	}
+	
+	public static enum Type {
+		SI ,
+		SCI,
+		GER,
+		ENG;
+		
+		public static Type fromName(String name) {
+			return valueOf(name.toUpperCase()) == null ? SI : valueOf(name.toUpperCase());
+		}
+	}
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/VanillaSprites.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/VanillaSprites.java
+文件名：VanillaSprites.java
+文件大小：5575 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core;
+
+public class VanillaSprites {
+	public static final SpriteInfo ARMOR_EMPTY_SPRITE = new SpriteInfo("hud/armor_empty", 16, 9);
+	public static final SpriteInfo ARMOR_HALF_SPRITE = new SpriteInfo("hud/armor_half", 25, 9);
+	public static final SpriteInfo ARMOR_FULL_SPRITE = new SpriteInfo("hud/armor_full", 34, 9);
+	
+	public static final SpriteInfo HEART_CONTAINER = new SpriteInfo("hud/heart/container", 16, 0);
+	public static final SpriteInfo HEART_CONTAINER_BLINKING = new SpriteInfo("hud/heart/container_blinking", 25, 0);
+	public static final SpriteInfo HEART_CONTAINER_HARDCORE = new SpriteInfo("hud/heart/container_hardcore", 16, 45);
+	public static final SpriteInfo HEART_CONTAINER_BLINKING_HARDCORE = new SpriteInfo("hud/heart/container_hardcore_blinking", 25, 45);
+	
+	public static final SpriteInfo HEART_FULL = new SpriteInfo("hud/heart/full", 52, 0);
+	public static final SpriteInfo HEART_HALF = new SpriteInfo("hud/heart/half", 61, 0);
+	public static final SpriteInfo HEART_FULL_BLINKING = new SpriteInfo("hud/heart/full_blinking", 70, 0);
+	public static final SpriteInfo HEART_HALF_BLINKING = new SpriteInfo("hud/heart/half_blinking", 79, 0);
+	public static final SpriteInfo HEART_FULL_HARDCORE = new SpriteInfo("hud/heart/hardcore_full", 52, 45);
+	public static final SpriteInfo HEART_HALF_HARDCORE = new SpriteInfo("hud/heart/hardcore_half", 61, 45);
+	public static final SpriteInfo HEART_FULL_BLINKING_HARDCORE = new SpriteInfo("hud/heart/hardcore_full_blinking", 70, 45);
+	public static final SpriteInfo HEART_HALF_BLINKING_HARDCORE = new SpriteInfo("hud/heart/hardcore_half_blinking", 79, 45);
+	
+	public static final SpriteInfo POISON_HEART_FULL = new SpriteInfo("hud/heart/poisoned_full", 88, 0);
+	public static final SpriteInfo POISON_HEART_HALF = new SpriteInfo("hud/heart/poisoned_half", 97, 0);
+	public static final SpriteInfo POISON_HEART_FULL_BLINKING = new SpriteInfo("hud/heart/poisoned_full_blinking", 106, 0);
+	public static final SpriteInfo POISON_HEART_HALF_BLINKING = new SpriteInfo("hud/heart/poisoned_half_blinking", 115, 0);
+	public static final SpriteInfo POISON_HEART_FULL_HARDCORE = new SpriteInfo("hud/heart/poisoned_hardcore_full", 88, 45);
+	public static final SpriteInfo POISON_HEART_HALF_HARDCORE = new SpriteInfo("hud/heart/poisoned_hardcore_half", 97, 45);
+	public static final SpriteInfo POISON_HEART_FULL_BLINKING_HARDCORE = new SpriteInfo("hud/heart/poisoned_hardcore_full_blinking", 106, 45);
+	public static final SpriteInfo POISON_HEART_HALF_BLINKING_HARDCORE = new SpriteInfo("hud/heart/poisoned_hardcore_half_blinking", 115, 45);
+	
+	public static final SpriteInfo WITHER_HEART_FULL = new SpriteInfo("hud/heart/withered_full", 124, 0);
+	public static final SpriteInfo WITHER_HEART_HALF = new SpriteInfo("hud/heart/withered_half", 133, 0);
+	public static final SpriteInfo WITHER_HEART_FULL_BLINKING = new SpriteInfo("hud/heart/withered_full_blinking", 142, 0);
+	public static final SpriteInfo WITHER_HEART_HALF_BLINKING = new SpriteInfo("hud/heart/withered_half_blinking", 151, 0);
+	public static final SpriteInfo WITHER_HEART_FULL_HARDCORE = new SpriteInfo("hud/heart/withered_hardcore_full", 124, 45);
+	public static final SpriteInfo WITHER_HEART_HALF_HARDCORE = new SpriteInfo("hud/heart/withered_hardcore_half", 133, 45);
+	public static final SpriteInfo WITHER_HEART_FULL_BLINKING_HARDCORE = new SpriteInfo("hud/heart/withered_hardcore_full_blinking", 142, 45);
+	public static final SpriteInfo WITHER_HEART_HALF_BLINKING_HARDCORE = new SpriteInfo("hud/heart/withered_hardcore_half_blinking", 151, 45);
+	
+	public static final SpriteInfo ABSORB_HEART_FULL = new SpriteInfo("hud/heart/absorbing_full", 160, 0);
+	public static final SpriteInfo ABSORB_HEART_HALF = new SpriteInfo("hud/heart/absorbing_half", 169, 0);
+	public static final SpriteInfo ABSORB_HEART_FULL_BLINKING = new SpriteInfo("hud/heart/absorbing_full_blinking", 160, 0);
+	public static final SpriteInfo ABSORB_HEART_HALF_BLINKING = new SpriteInfo("hud/heart/absorbing_half_blinking", 169, 0);
+	public static final SpriteInfo ABSORB_HEART_FULL_HARDCORE = new SpriteInfo("hud/heart/absorbing_hardcore_full", 160, 45);
+	public static final SpriteInfo ABSORB_HEART_HALF_HARDCORE = new SpriteInfo("hud/heart/absorbing_hardcore_half", 169, 45);
+	public static final SpriteInfo ABSORB_HEART_FULL_BLINKING_HARDCORE = new SpriteInfo("hud/heart/absorbing_hardcore_full_blinking", 160, 45);
+	public static final SpriteInfo ABSORB_HEART_HALF_BLINKING_HARDCORE = new SpriteInfo("hud/heart/absorbing_hardcore_half_blinking", 169, 45);
+	
+	public static final SpriteInfo FROZEN_HEART_FULL = new SpriteInfo("hud/heart/frozen_full", 178, 0);
+	public static final SpriteInfo FROZEN_HEART_HALF = new SpriteInfo("hud/heart/frozen_half", 187, 0);
+//	public static final SpriteInfo FROZEN_HEART_FULL_BLINKING = new SpriteInfo("hud/heart/frozen_full_blinking", 178, 0);
+//	public static final SpriteInfo FROZEN_HEART_HALF_BLINKING = new SpriteInfo("hud/heart/frozen_half_blinking", 187, 0);
+	public static final SpriteInfo FROZEN_HEART_FULL_HARDCORE = new SpriteInfo("hud/heart/frozen_hardcore_full", 178, 45);
+	public static final SpriteInfo FROZEN_HEART_HALF_HARDCORE = new SpriteInfo("hud/heart/frozen_hardcore_half", 187, 45);
+//	public static final SpriteInfo FROZEN_HEART_FULL_BLINKING_HARDCORE = new SpriteInfo("hud/heart/frozen_hardcore_full_blinking", 178, 45);
+//	public static final SpriteInfo FROZEN_HEART_HALF_BLINKING_HARDCORE = new SpriteInfo("hud/heart/frozen_hardcore_half_blinking", 187, 45);
+	
+	public static void init() { }
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/adapter/IConfig.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/adapter/IConfig.java
+文件名：IConfig.java
+文件大小：28058 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.adapter;
+
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.*;
+
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
+
+import dev.cheos.armorpointspp.core.*;
+import dev.cheos.armorpointspp.core.RenderableText.Alignment;
+import dev.cheos.armorpointspp.core.texture.ITextureSheet;
+
+public interface IConfig {
+	public static final DecimalFormat FLOAT_FORMAT = new DecimalFormat("#.##", DecimalFormatSymbols.getInstance(Locale.ROOT));
+	
+	boolean               bool(Option<Boolean> key);
+	int                   hex (Option<Integer> key);
+	int                   num (Option<Integer> key);
+	float                 dec (Option<Float  > key);
+	String                str (Option<String > key);
+	<T extends Enum<T>> T enm (Option<T      > key);
+	void invalidateAll();
+	
+	public static enum Category {
+		COMPAT("compatibility"),
+		COMPAT_REP("compatibility.representative"),
+		GENERAL("general"),
+		GENERAL_DEBUG("general.debug"),
+		REPRESENTATIVE("representative"),
+		TEXT_COLOR("textcolors"),
+		TEXT_CONFIG("textconfig");
+		
+		static {
+			COMPAT.subCategories.add(COMPAT_REP);
+			GENERAL.subCategories.add(GENERAL_DEBUG);
+		}
+		
+		private final List<String> path;
+		private final String pathJoined;
+		private final Set<Category> subCategories = new HashSet<>();
+		private final Set<Option<?>> options = new HashSet<>();
+		
+		Category(String path) {
+			this.path = ImmutableList.copyOf(Arrays.asList(path.split("\\.")));
+			this.pathJoined = path;
+		}
+		
+		public List<String> getPath() {
+			return this.path;
+		}
+		
+		public String getPathJoined() {
+			return this.pathJoined;
+		}
+		
+		public Set<Option<?>> getOptions() {
+			return ImmutableSet.copyOf(this.options);
+		}
+		
+		public boolean hasOptions(Version version) {
+			return !this.options.stream().noneMatch(o -> o.isAvailableIn(version));
+		}
+		
+		public Set<Category> getSubCategories() {
+			return ImmutableSet.copyOf(this.subCategories);
+		}
+	}
+	
+	public static enum Version {
+		v1_12,
+		v1_16,
+		v1_17,
+		v1_18,
+		v1_19,
+		v1_20,
+		v1_21,
+		v1_18fabric,
+		v1_19fabric,
+		v1_20fabric,
+		v1_21fabric;
+		
+		public static final ImmutableList<Version> ALL     = ImmutableList.copyOf(Version.values());
+		public static final ImmutableList<Version> NONE    = ImmutableList.of();
+		public static final ImmutableList<Version> FABRIC  = ImmutableList.of(v1_18fabric, v1_19fabric, v1_20fabric, v1_21fabric);
+		public static final ImmutableList<Version> V1_12   = ImmutableList.of(v1_12);
+		public static final ImmutableList<Version> V1_16   = ImmutableList.of(v1_16);
+		public static final ImmutableList<Version> V1_17   = ImmutableList.of(v1_17);
+		public static final ImmutableList<Version> V1_18   = ImmutableList.of(v1_18, v1_18fabric);
+		public static final ImmutableList<Version> V1_19   = ImmutableList.of(v1_19, v1_19fabric);
+		public static final ImmutableList<Version> V1_20   = ImmutableList.of(v1_20, v1_20fabric);
+		public static final ImmutableList<Version> V1_21   = ImmutableList.of(v1_21, v1_21fabric);
+		public static final ImmutableList<Version> V1_20UP = ImmutableList.<Version>builder().addAll(V1_21  ).addAll(V1_20).build();
+		public static final ImmutableList<Version> V1_19UP = ImmutableList.<Version>builder().addAll(V1_20UP).addAll(V1_19).build();
+		public static final ImmutableList<Version> V1_18UP = ImmutableList.<Version>builder().addAll(V1_19UP).addAll(V1_18).build();
+		public static final ImmutableList<Version> V1_17UP = ImmutableList.<Version>builder().addAll(V1_18UP).addAll(V1_17).build();
+		public static final ImmutableList<Version> V1_16UP = ImmutableList.<Version>builder().addAll(V1_17UP).addAll(V1_16).build();
+		public static final ImmutableList<Version> V1_12UP = ImmutableList.<Version>builder().addAll(V1_16UP).addAll(V1_12).build();
+	}
+	
+	public static interface Option<T> {
+		String key();
+		String[] comments();
+		T def();
+		Category category();
+		boolean isAvailableIn(Version version);
+		Class<T> type();
+		
+		default BoundedOption<T> asBounded() {
+			return this instanceof BoundedOption<?> ? (BoundedOption<T>) this : new NullBoundedOptionWrapper<>(this);
+		}
+		
+		static class NullBoundedOptionWrapper<T> implements BoundedOption<T> {
+			private final Option<T> opt;
+			private final boolean   num;
+			private final boolean  bool;
+			
+			private NullBoundedOptionWrapper(Option<T> opt) {
+				this.opt  = opt;
+				this.num  = opt.def() instanceof Number;
+				this.bool = opt.def() instanceof Boolean;
+			}
+			
+			@Override
+			public String key() {
+				return this.opt.key();
+			}
+			
+			@Override
+			public String[] comments() {
+				return this.opt.comments();
+			}
+			
+			@Override
+			public T def() {
+				return this.opt.def();
+			}
+			
+			@Override
+			public Category category() {
+				return this.opt.category();
+			}
+			
+			@Override
+			public boolean isAvailableIn(Version version) {
+				return opt.isAvailableIn(version);
+			}
+			
+			@Override
+			public Class<T> type() {
+				return this.opt.type();
+			}
+			
+			@Override
+			@SuppressWarnings("unchecked")
+			public T min() {
+				return (T) (this.num ? 0 : this.bool ? false : null);
+			}
+			
+			@Override
+			@SuppressWarnings("unchecked")
+			public T max() {
+				return (T) (this.num ? 0 : this.bool ? false : null);
+			}
+		}
+	}
+	
+	public static interface BoundedOption<T> extends Option<T> {
+		T min();
+		T max();
+	}
+	
+	public static enum BooleanOption implements Option<Boolean> {
+		ABSORPTION_ENABLE           ("enableAbsorption"          , true , Category.GENERAL      , " Show absorption as border around health"                                     , " Available: true, false [default: %s]"),
+		ABSORPTION_OVERLAY          ("useAbsorptionOverlay"      , false, Category.GENERAL      , " Show absorption as hearts within the health bar"                             , " Available: true, false [default: %s]"),
+		ARMOR_ENABLE                ("enableArmorBar"            , true , Category.GENERAL      , " Enable custom armor bar"                                                     , " Available: true, false [default: %s]"),
+		ARMOR_HIDDEN                ("hideArmorBar"              , false, Category.GENERAL      , " Hides the armor bar + armor value text regardless of other config optoins"   , " Available: true, false [default: %s]"),
+		ARMOR_TEXT_ENABLE           ("showArmorValue"            , true , Category.GENERAL      , " Show armor value text next to armor bar"                                     , " Available: true, false [default: %s]"),
+		ARMOR_TEXT_CONFIG_ENABLE    ("enableArmorValueConfig"    , false, Category.TEXT_CONFIG  , " Enables custom armor value configuration"                                    , " Available: true, false [default: %s]"),
+		ARMOR_SHOW_ON_0             ("showArmorWhenZero"         , false, Category.GENERAL      , " Show armor bar when armor is zero"                                           , " Available: true, false [default: %s]"),
+		DEBUG                       ("debug"                     , false, Category.GENERAL_DEBUG, " You don't want this to be on. Believe me"                                    , " Available: true, false [default: %s]"),
+		DISABLE_EASTEREGGS          ("disableEastereggs"         , false, Category.GENERAL      , " Disables all easter eggs, which is sad but some want it"                     , " Available: true, false [default: %s]"),
+		FROSTBITE_TEXT_ENABLE       ("showFrostbitePercentage"   , true , Category.GENERAL      , " Show frostbite percentage next to health bar"                                , " Available: true, false [default: %s]"),
+		HEALTH_ENABLE               ("enableHealthBar"           , true , Category.GENERAL      , " Enable custom health bar"                                                    , " Available: true, false [default: %s]"),
+		HEALTH_HIDDEN               ("hideHealthBar"             , false, Category.GENERAL      , " Hides the health bar + health value text regardless of other config optoins" , " Available: true, false [default: %s]"),
+		HEALTH_TEXT_ENABLE          ("showHealthValue"           , true , Category.GENERAL      , " Show health value text next to health bar"                                   , " Available: true, false [default: %s]"),
+		HEALTH_TEXT_CONFIG_ENABLE   ("enableHealthValueConfig"   , false, Category.TEXT_CONFIG  , " Enables custom health value configuration"                                   , " Available: true, false [default: %s]"),
+		HEALTH_BG_ALWAYS_SHOW_10    ("alwaysShow10HeartBGs"      , false, Category.GENERAL      , " Always render 10 heart backgrounds, even if max health is lower"             , " Available: true, false [default: %s]"),
+		HIDE_COMPAT_WARNINGS        ("hideCompatWarnings"        , false, Category.COMPAT       , " Hides all compatibility warnings...", "I don't recommend switching this on except for pack authors", " Available: true, false [default: %s]"),
+		MANTLE_COMPAT               ("mantle"                    , true , Category.COMPAT       , Version.V1_12, " Fixes mantle compatibility"                                   , " Available: true, false [default: %s]"),
+		POTIONCORE_COMPAT           ("potioncore"                , true , Category.COMPAT       , Version.V1_12, " Adds support for potioncore's effects and attributes"         , " Available: true, false [default: %s]"),
+		PROTECTION_ENABLE           ("showProtection"            , true , Category.GENERAL      , " Show protection as overlay over armor"                                       , " Available: true, false [default: %s]"),
+		RESISTANCE_ENABLE           ("showResistance"            , true , Category.GENERAL      , " Show resistance as border around armor"                                      , " Available: true, false [default: %s]"),
+		TABLIST_HEALTH_ENABLE       ("enableTablistHealth"       , true , Category.GENERAL      , Version.V1_16UP, " Enable custom tablist health rendering (displaytype health)", " Available: true, false [default: %s]"),
+		TABLIST_HEALTH_ALWAYS_MAX   ("alwaysShowMaxTablistHearts", true , Category.GENERAL      , Version.V1_16UP, " Always render max (configured) heart backgrounds in tablist, even if health is lower", " Available: true, false [default: %s]"),
+		TEXT_SHADOW                 ("textShadow"                , true , Category.GENERAL      , " Draw shadows for all rendered texts"                                         , " Available: true, false [default: %s]"),
+		TOUGHNESS_BAR               ("useToughnessBar"           , false, Category.GENERAL      , " Show toughness as it's own bar"                                              , " Available: true, false [default: %s]"),
+		TOUGHNESS_ENABLE            ("enableToughness"           , true , Category.GENERAL      , " Show toughness as overlay over armor or its own bar"                         , " Available: true, false [default: %s]"),
+		TOUGHNESS_SHOW_ON_0         ("showToughnessWhenZero"     , false, Category.GENERAL      , " Show toughness bar when toughness is zero"                                   , " Available: true, false [default: %s]"),
+		TOUGHNESS_TEXT_ENABLE       ("showToughnessValue"        , true , Category.GENERAL      , " Show toughness value text next to toughness bar"                             , " Available: true, false [default: %s]"),
+		TOUGHNESS_TEXT_CONFIG_ENABLE("enableToughnessValueConfig", false, Category.TEXT_CONFIG  , " Enables custom toughness value configuration"                                , " Available: true, false [default: %s]");
+		
+		final String key;
+		final boolean def;
+		final Category category;
+		final ImmutableList<Version> versions;
+		final ImmutableList<String> comments;
+		BooleanOption(String key, boolean def, Category category, String... comments) { this(key, def, category, Version.ALL, comments); }
+		BooleanOption(String key, boolean def, Category category, ImmutableList<Version> versions, String... comments) {
+			this.key = key;
+			this.def = def;
+			this.category = category;
+			this.versions = versions;
+			this.comments = Arrays.stream(comments).map(s -> String.format(s, def)).collect(ImmutableList.toImmutableList());
+			this.category.options.add(this);
+		}
+		
+		@Override
+		public String key() {
+			return this.key;
+		}
+		
+		@Override
+		public String[] comments() {
+			return this.comments.toArray(new String[0]);
+		}
+		
+		@Override
+		public Boolean def() {
+			return this.def;
+		}
+		
+		@Override
+		public Category category() {
+			return this.category;
+		}
+		
+		@Override
+		public boolean isAvailableIn(Version version) {
+			return this.versions.contains(version);
+		}
+		
+		@Override
+		public Class<Boolean> type() {
+			return Boolean.class;
+		}
+	}
+	
+	public static enum IntegerOption implements BoundedOption<Integer> {
+		TABLIST_MAX_HEART_COUNT   ("maxTablistHeartCount", 10, 1, 10, Category.GENERAL   , Version.V1_16UP, "Sets the max number of hearts rendered in the tablist", " Available: %s ~ %s [default: %s]");
+		
+		final String key;
+		final int    def, min, max;
+		final Category category;
+		final List<Version> versions;
+		final List<String> comments;
+		IntegerOption(String key, int def, Category category, String... comments) { this(key, def, category, Version.ALL, comments); }
+		IntegerOption(String key, int def, Category category, List<Version> versions, String... comments) { this(key, def, Integer.MAX_VALUE, category, versions, comments); }
+		IntegerOption(String key, int def, int max, Category category, List<Version> versions, String... comments) { this(key, def, 0, max, category, versions, comments); }
+		IntegerOption(String key, int def, int min, int max, Category category, List<Version> versions, String... comments) {
+			this.key = key;
+			this.def = def;
+			this.min = min;
+			this.max = max;
+			this.category = category;
+			this.versions = versions;
+			this.comments = Arrays.stream(comments).map(s -> String.format(s, Integer.toString(min), Integer.toString(max), Integer.toString(def))).collect(ImmutableList.toImmutableList());
+			this.category.options.add(this);
+		}
+		
+		@Override
+		public String key() {
+			return this.key;
+		}
+		
+		@Override
+		public String[] comments() {
+			return this.comments.toArray(new String[0]);
+		}
+		
+		@Override
+		public Integer def() {
+			return this.def;
+		}
+		
+		@Override
+		public Integer min() {
+			return this.min;
+		}
+		
+		@Override
+		public Integer max() {
+			return this.max;
+		}
+		
+		@Override
+		public Category category() {
+			return this.category;
+		}
+		
+		@Override
+		public boolean isAvailableIn(Version version) {
+			return this.versions.contains(version);
+		}
+		
+		@Override
+		public Class<Integer> type() {
+			return Integer.class;
+		}
+	}
+	
+	public static enum HexOption implements BoundedOption<Integer> {
+		TEXT_COLOR_FULL_RESISTANCE("resistanceFull"      , 0x8a0f0f , Category.TEXT_COLOR, " Color when resistance > 5"                     , " Available: 0x000000 ~ 0xffffff [default: %s]"),
+		TEXT_COLOR_ARMOR_0        ("armor0"              , 0x3d3d3d , Category.TEXT_COLOR, " Color when armor = 0"                          , " Available: 0x000000 ~ 0xffffff [default: %s]"),
+		TEXT_COLOR_ARMOR_LT25     ("armorLT25"           , 0x44ff11 , Category.TEXT_COLOR, " Color when armor < 25"                         , " Available: 0x000000 ~ 0xffffff [default: %s]"),
+		TEXT_COLOR_ARMOR_EQ25     ("armorEQ25"           , 0xff8811 , Category.TEXT_COLOR, " Color when armor = 25"                         , " Available: 0x000000 ~ 0xffffff [default: %s]"),
+		TEXT_COLOR_ARMOR_GT25     ("armorGT25"           , 0xff3311 , Category.TEXT_COLOR, " Color when armor > 25"                         , " Available: 0x000000 ~ 0xffffff [default: %s]"),
+		TEXT_COLOR_FROSTBITE      ("heartFrostbite"      , 0x01bef2 , Category.TEXT_COLOR, " Color when fully frozen"                       , " Available: 0x000000 ~ 0xffffff [default: %s]"),
+		TEXT_COLOR_POISON         ("heartPoison"         , 0x947818 , Category.TEXT_COLOR, " Color when poisoned"                           , " Available: 0x000000 ~ 0xffffff [default: %s]"),
+		TEXT_COLOR_WITHER         ("heartWither"         , 0x2b2b2b , Category.TEXT_COLOR, " Color when withered"                           , " Available: 0x000000 ~ 0xffffff [default: %s]"),
+		TEXT_COLOR_HEART          ("heart"               , 0xff1313 , Category.TEXT_COLOR, " Color normal status"                           , " Available: 0x000000 ~ 0xffffff [default: %s]"),
+		TEXT_COLOR_ABSORPTION     ("absorption"          , 0xffc300 , Category.TEXT_COLOR, " Color of absorption"                           , " Available: 0x000000 ~ 0xffffff [default: %s]"),
+		TEXT_COLOR_SEPARATOR      ("separator"           , 0x3d3d3d , Category.TEXT_COLOR, " Color of separator"                            , " Available: 0x000000 ~ 0xffffff [default: %s]"),
+		TEXT_COLOR_TOUGHNESS      ("toughness"           , 0xff8811 , Category.TEXT_COLOR, " Color of toughness"                            , " Available: 0x000000 ~ 0xffffff [default: %s]");
+		
+		final String key;
+		final int    def;
+		final Category category;
+		final List<Version> versions;
+		final List<String> comments;
+		HexOption(String key, int def, Category category, String... comments) { this(key, def, category, Version.ALL, comments); }
+		HexOption(String key, int def, Category category, ImmutableList<Version> versions, String... comments) {
+			this.key = key;
+			this.def = def;
+			this.category = category;
+			this.versions = versions;
+			this.comments = Arrays.stream(comments).map(s -> String.format(s, String.format("%06x", def))).collect(ImmutableList.toImmutableList());
+			this.category.options.add(this);
+		}
+		
+		@Override
+		public String key() {
+			return this.key;
+		}
+		
+		@Override
+		public String[] comments() {
+			return this.comments.toArray(new String[0]);
+		}
+		
+		@Override
+		public Integer def() {
+			return this.def;
+		}
+		
+		@Override
+		public Integer min() {
+			return 0;
+		}
+		
+		@Override
+		public Integer max() {
+			return 0xffffff;
+		}
+		
+		@Override
+		public Category category() {
+			return this.category;
+		}
+		
+		@Override
+		public boolean isAvailableIn(Version version) {
+			return this.versions.contains(version);
+		}
+		
+		@Override
+		public Class<Integer> type() {
+			return Integer.class;
+		}
+	}
+	
+	public static enum FloatOption implements BoundedOption<Float> {
+		ABSORPTION_VALUE("absorption"     , 0.25F,   200, Category.REPRESENTATIVE, " Number of pixels to show an absorption of 1"                   , " Available: %s ~ %s [default: %s]"),
+		ARMOR_TEXT_X    ("armorValueX"    , 0F   , 32768, Category.TEXT_CONFIG   , " if enabled, custom X position of the armor value text"         , " Available: %s ~ %s [default: %s]"),
+		ARMOR_TEXT_Y    ("armorValueY"    , 0F   , 32768, Category.TEXT_CONFIG   , " if enabled, custom Y position of the armor value text"         , " Available: %s ~ %s [default: %s]"),
+		HEALTH_TEXT_X   ("healthValueX"   , 0F   , 32768, Category.TEXT_CONFIG   , " if enabled, custom X position of the health value text"        , " Available: %s ~ %s [default: %s]"),
+		HEALTH_TEXT_Y   ("healthValueY"   , 0F   , 32768, Category.TEXT_CONFIG   , " if enabled, custom Y position of the health value text"        , " Available: %s ~ %s [default: %s]"),
+		TOUGHNESS_TEXT_X("toughnessValueX", 0F   , 32768, Category.TEXT_CONFIG   , " if enabled, custom X position of the toughness value text"     , " Available: %s ~ %s [default: %s]"),
+		TOUGHNESS_TEXT_Y("toughnessValueY", 0F   , 32768, Category.TEXT_CONFIG   , " if enabled, custom Y position of the toughness value text"     , " Available: %s ~ %s [default: %s]"),
+		MAGIC_RES_VALUE ("magicResist"    , 2F   ,    20, Category.COMPAT_REP    , Version.V1_12, " Number of icons to show a magic resistance of 1", " Available: %s ~ %s [default: %s]"),
+		PROTECTION_VALUE("protection"     , 0.5F ,    10, Category.REPRESENTATIVE, " Number of icons to show a protection of 1"                     , " Available: %s ~ %s [default: %s]"),
+		RESISTANCE_VALUE("resistance"     , 2F   ,    10, Category.REPRESENTATIVE, " Number of icons to show a resistance of 1"                     , " Available: %s ~ %s [default: %s]"),
+		TOUGHNESS_VALUE ("toughness"      , 1F   ,    10, Category.REPRESENTATIVE, " Number of icons to show a armor toughness of 1"                , " Available: %s ~ %s [default: %s]", " Note: This ONLY affects toughness overlays and NOT the standalone toughness bar");
+		
+		final String key;
+		final float def, min, max;
+		final Category category;
+		final List<Version> versions;
+		final List<String> comments;
+		FloatOption(String key, float def, float max, Category category, String... comments) { this(key, def, max, category, Version.ALL, comments); }
+		FloatOption(String key, float def, float max, Category category, List<Version> versions, String... comments) { this(key, def, 0, max, category, versions, comments); }
+		FloatOption(String key, float def, float min, float max, Category category, List<Version> versions, String... comments) {
+			this.key = key;
+			this.def = def;
+			this.min = min;
+			this.max = max;
+			this.category = category;
+			this.versions = versions;
+			this.comments = Arrays.stream(comments).map(s ->
+					String.format(s,
+							FLOAT_FORMAT.format(this.min),
+							FLOAT_FORMAT.format(this.max),
+							FLOAT_FORMAT.format(this.def))).collect(ImmutableList.toImmutableList());
+			this.category.options.add(this);
+		}
+		
+		@Override
+		public String key() {
+			return this.key;
+		}
+		
+		@Override
+		public String[] comments() {
+			return this.comments.toArray(new String[0]);
+		}
+		
+		@Override
+		public Float def() {
+			return this.def;
+		}
+		
+		@Override
+		public Float min() {
+			return this.min;
+		}
+		
+		@Override
+		public Float max() {
+			return this.max;
+		}
+		
+		@Override
+		public Category category() {
+			return this.category;
+		}
+		
+		@Override
+		public boolean isAvailableIn(Version version) {
+			return this.versions.contains(version);
+		}
+		
+		@Override
+		public Class<Float> type() {
+			return Float.class;
+		}
+	}
+	
+	public static enum StringOption implements Option<String> {
+		TEXTURE_SHEET("textureSheet", "default", Category.GENERAL, " Sets the texture sheet used for rendering", " See https://github.com/Cheos137/ArmorpointsPlusplus/wiki/Custom-Texture-Sheets for more information", " Builtin: %s [default: %s]");
+		
+		final String key;
+		final String def;
+		final Category category;
+		final List<Version> versions;
+		final List<String> comments;
+		StringOption(String key, String def, Category category, String... comments) { this(key, def, category, Version.ALL, comments); }
+		StringOption(String key, String def, Category category, List<Version> versions, String... comments) {
+			this.key = key;
+			this.def = def;
+			this.category = category;
+			this.versions = versions;
+			this.comments = Arrays.stream(comments).map(s -> String.format(s, formatBuiltinTexSheets(), def)).collect(ImmutableList.toImmutableList());
+			this.category.options.add(this);
+		}
+		
+		@Override
+		public String key() {
+			return this.key;
+		}
+
+		@Override
+		public String[] comments() {
+			return this.comments.toArray(new String[0]);
+		}
+
+		@Override
+		public String def() {
+			return this.def;
+		}
+
+		@Override
+		public Category category() {
+			return this.category;
+		}
+		
+		@Override
+		public boolean isAvailableIn(Version version) {
+			return this.versions.contains(version);
+		}
+
+		@Override
+		public Class<String> type() {
+			return String.class;
+		}
+		
+		private static String formatBuiltinTexSheets() {
+			StringBuilder out = new StringBuilder();
+			for (int i = 0; i < ITextureSheet.builtins.size(); i++)
+				out.append(i != 0 ? ", " : "").append(ITextureSheet.sheets.inverse().get(ITextureSheet.builtins.get(i)));
+			return out.toString();
+		}
+	}
+	
+	public static class EnumOption<T extends Enum<T>> implements Option<T> {
+		public static final EnumOption<FrostbiteStyle>
+				FROSTBITE_STYLE          = new EnumOption<>("frostbiteStyle"                  , FrostbiteStyle.ICON, Category.GENERAL    , " Frostbite heart display style (full = vanilla)"                           , " Available: %s [default: %s]");
+		public static final EnumOption<Suffix.Type>
+				SUFFIX                   = new EnumOption<>("suffix"                          , Suffix.Type.SI     , Category.GENERAL    , " Suffix type used for displaying high numeric values"                      , " Available: %s [default: %s]");
+		public static final EnumOption<Alignment>
+				ARMOR_TEXT_ALIGNMENT     = new EnumOption<>("armorValueAlignment"             , Alignment.RIGHT    , Category.TEXT_CONFIG, " if enabled, custom alignment of the armor value text"                     , " Available: %s [default: %s]"),
+				HEALTH_TEXT_ALIGNMENT    = new EnumOption<>("healthValueAlignment"            , Alignment.RIGHT    , Category.TEXT_CONFIG, " if enabled, custom alignment of the health value text"                    , " Available: %s [default: %s]"),
+				TOUGHNESS_TEXT_ALIGNMENT = new EnumOption<>("toughnessValueAlignment"         , Alignment.RIGHT    , Category.TEXT_CONFIG, " if enabled, custom alignment of the toughness value text"                 , " Available: %s [default: %s]");
+		public static final EnumOption<Side>
+				TOUGHNESS_SIDE           = new EnumOption<>("toughnessSide"                   , Side.LEFT          , Category.GENERAL    , " Determines the side of the toughness bar"                                 , " Available: %s [default: %s]", " Only effective if useToughnessBar is set to true!");
+		public static final EnumOption<EnableState>
+				TOUGHNESS_MIRRORING      = new EnumOption<>("toughnessMirroring"              , EnableState.AUTO   , Category.GENERAL    , " Determines whether the thoughenss bar should be mirrored"                 , " Available: %s [default: %s]", " Only effective if useToughnessBar is set to true!");
+		public static final EnumOption<EnableState>
+				DETAILAB_COMPAT          = new EnumOption<>("detailarmorbar"                  , EnableState.AUTO   , Category.COMPAT     , Version.FABRIC, " Renders DetailArmorBar when below 21 armor points (AUTO), ALWAYS or NEVER", " Available: %s [default: %s]");
+		
+		private static final List<EnumOption<?>> ALL = ImmutableList.copyOf(new EnumOption<?>[] {
+			FROSTBITE_STYLE,
+			SUFFIX,
+			ARMOR_TEXT_ALIGNMENT,
+			HEALTH_TEXT_ALIGNMENT,
+			TOUGHNESS_TEXT_ALIGNMENT,
+			TOUGHNESS_SIDE,
+			TOUGHNESS_MIRRORING,
+			DETAILAB_COMPAT
+		});
+		
+		final String key;
+		final T def;
+		final Category category;
+		final List<Version> versions;
+		final List<String> comments;
+		final Class<T> type;
+		
+		EnumOption(String key, T def, Category category, String... comments) { this(key, def, category, Version.ALL, comments); }
+		@SuppressWarnings("unchecked")
+		EnumOption(String key, T def, Category category, List<Version> versions, String... comments) {
+			this.key = key;
+			this.def = def;
+			this.category = category;
+			this.versions = versions;
+			this.comments = Arrays.stream(comments).map(s -> String.format(s, formatOptions(def.getClass()), def.name())).collect(ImmutableList.toImmutableList());
+			this.type = (Class<T>) def.getClass();
+			this.category.options.add(this);
+		}
+		
+		@Override
+		public String key() {
+			return this.key;
+		}
+		
+		@Override
+		public String[] comments() {
+			return this.comments.toArray(new String[0]);
+		}
+		
+		@Override
+		public T def() {
+			return this.def;
+		}
+		
+		@Override
+		public Category category() {
+			return this.category;
+		}
+		
+		@Override
+		public boolean isAvailableIn(Version version) {
+			return this.versions.contains(version);
+		}
+		
+		@Override
+		public Class<T> type() {
+			return this.type;
+		}
+		
+		public static Iterable<EnumOption<?>> values() {
+			return ALL;
+		}
+		
+		private static <T extends Enum<T>> String formatOptions(Class<T> clazz) {
+			StringBuilder out = new StringBuilder();
+			try {
+				T[] values = clazz.getEnumConstants();
+				if (values != null && values.length != 0)
+					for (int i = 0; i < values.length; i++)
+						out.append(i != 0 ? ", " : "").append(values[i].name());
+				else out.append("<none>");
+			} catch (Throwable t) { out.append("[!] <ERROR> [!]"); }
+			return out.toString();
+		}
+	}
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/adapter/IDataProvider.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/adapter/IDataProvider.java
+文件名：IDataProvider.java
+文件大小：850 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.adapter;
+
+public interface IDataProvider {
+	int armor();
+	int maxArmor();
+	double toughness();
+	double maxToughness();
+	int guiTicks();
+	int invulnTime();
+	long millis();
+	float health();
+	float maxHealth();
+	float absorption();
+	float percentFrozen();
+	IEffectProvider effects();
+	IEnchantmentProvider enchantments();
+	boolean hidden();
+	boolean isPotionCoreLoaded();
+	boolean isFullyFrozen();
+	boolean isHardcore();
+	boolean isEffectActive(String id);
+	boolean isEffectActive(IMobEffect effect);
+	boolean shouldDrawSurvivalElements();
+	IMobEffectInstance getActiveEffect(IMobEffect effect);
+	IPotionCore potionCore();
+	Iterable<IItemStack> armorSlots();
+	
+	// these should return 0 by definition if potioncore is not supported
+	public interface IPotionCore {
+		double magicShield();
+		double resistance();
+	}
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/adapter/IEffectProvider.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/adapter/IEffectProvider.java
+文件名：IEffectProvider.java
+文件大小：182 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.adapter;
+
+public interface IEffectProvider {
+	IMobEffect resistance();
+	IMobEffect regeneration();
+	IMobEffect poison();
+	IMobEffect wither();
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/adapter/IEnchantment.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/adapter/IEnchantment.java
+文件名：IEnchantment.java
+文件大小：107 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.adapter;
+
+public interface IEnchantment {
+	Object getEnchantment();
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/adapter/IEnchantmentHelper.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/adapter/IEnchantmentHelper.java
+文件名：IEnchantmentHelper.java
+文件大小：139 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.adapter;
+
+public interface IEnchantmentHelper {
+	int getLevel(IEnchantment ench, IItemStack stack);
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/adapter/IEnchantmentProvider.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/adapter/IEnchantmentProvider.java
+文件名：IEnchantmentProvider.java
+文件大小：220 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.adapter;
+
+public interface IEnchantmentProvider {
+	IEnchantment protection();
+	IEnchantment blastProtection();
+	IEnchantment fireProtection();
+	IEnchantment projectileProtection();
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/adapter/IItemStack.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/adapter/IItemStack.java
+文件名：IItemStack.java
+文件大小：99 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.adapter;
+
+public interface IItemStack {
+	Object getStack();
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/adapter/IMath.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/adapter/IMath.java
+文件名：IMath.java
+文件大小：557 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.adapter;
+
+public interface IMath {
+	public static final IMath INSTANCE = new IMath() { };
+	
+	default int ceil(float f) {
+		int i = (int) f;
+		return f > i ? i + 1 : i;
+	}
+	
+	default long ceil(double d) {
+		long l = (long) d;
+		return d > l ? l + 1 : l;
+	}
+	
+	default int floor(float f) {
+		int i = (int) f;
+		return f < i ? i - 1 : i;
+	}
+	
+	default long floor(double d) {
+		long l = (long) d;
+		return d < l ? l -1 : l;
+	}
+	
+	default int clamp(int i, int min, int max) {
+		return i < min ? min : i > max ? max : i;
+	}
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/adapter/IMobEffect.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/adapter/IMobEffect.java
+文件名：IMobEffect.java
+文件大小：100 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.adapter;
+
+public interface IMobEffect {
+	Object getEffect();
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/adapter/IMobEffectInstance.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/adapter/IMobEffectInstance.java
+文件名：IMobEffectInstance.java
+文件大小：144 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.adapter;
+
+public interface IMobEffectInstance {
+	int amplifier();
+	int duration();
+	IMobEffect effect();
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/adapter/IPoseStack.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/adapter/IPoseStack.java
+文件名：IPoseStack.java
+文件大小：227 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.adapter;
+
+public interface IPoseStack {
+	void pushPose();
+	void popPose();
+	void scale(float x, float y, float z);
+	void translate(double x, double y, double z);
+	
+	Object getPoseStack();
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/adapter/IProfiler.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/adapter/IProfiler.java
+文件名：IProfiler.java
+文件大小：138 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.adapter;
+
+public interface IProfiler {
+	void push(String s);
+	void pop();
+	void popPush(String s);
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/adapter/IRenderer.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/adapter/IRenderer.java
+文件名：IRenderer.java
+文件大小：1859 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.adapter;
+
+import dev.cheos.armorpointspp.core.SpriteInfo;
+import dev.cheos.armorpointspp.core.texture.ITextureSheet;
+
+public interface IRenderer {
+	void blit(IPoseStack poseStack, int x, int y, float u, float v, int width, int height, int texWidth, int texHeight);
+	void blit(IPoseStack poseStack, int x, int y, float u, float v, int width, int height);
+	void blitSprite(IPoseStack poseStack, int x, int y, int width, int height, SpriteInfo sprite);
+	void blitSprite(IPoseStack poseStack, int x, int y, int width, int height, SpriteInfo sprite, int uOffset, int vOffset, int spriteWidth, int spriteHeight);
+	void blitM(IPoseStack poseStack, int x, int y, float u, float v, int width, int height, int texWidth, int texHeight);
+	void blitM(IPoseStack poseStack, int x, int y, float u, float v, int width, int height);
+	default void setColor(int color) {
+		setColor(((color >> 16) & 0xFF) / 255F, ((color >> 8) & 0xFF) / 255F, (color & 0xFF) / 255F, ((color >> 24) & 0xFF) / 255F);
+	}
+	default void setColorRGB(int color) {
+		setColor(((color >> 16) & 0xFF) / 255F, ((color >> 8) & 0xFF) / 255F, (color & 0xFF) / 255F, 1);
+	}
+	void setColor(float r, float g, float b, float a);
+	void setupAppp();
+	void setupTexture(ITextureSheet texSheet);
+	void setupVanilla();
+	default void text(IPoseStack poseStack, String text, float x, float y) { text(poseStack, text, x, y, 0); }
+	default void text(IPoseStack poseStack, String text, float x, float y, int color) { text(poseStack, text, x, y, color, TextRenderType.TEXT); }
+	void text(IPoseStack poseStack, String text, float x, float y, int color, TextRenderType renderType);
+	void text(IPoseStack poseStack, String text, float x, float y, int color, TextRenderType renderType, boolean shadow);
+	int width(Object... objs);
+	
+	public static enum TextRenderType {
+		LANG,
+		TEXT;
+	}
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/adapter/IResourceLocation.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/adapter/IResourceLocation.java
+文件名：IResourceLocation.java
+文件大小：117 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.adapter;
+
+public interface IResourceLocation {
+	Object getResourceLocation();
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/render/AbsorptionComponent.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/render/AbsorptionComponent.java
+文件名：AbsorptionComponent.java
+文件大小：1733 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.render;
+
+import dev.cheos.armorpointspp.core.IRenderComponent;
+import dev.cheos.armorpointspp.core.RenderContext;
+import dev.cheos.armorpointspp.core.adapter.IConfig.BooleanOption;
+import dev.cheos.armorpointspp.core.adapter.IConfig.FloatOption;
+import dev.cheos.armorpointspp.core.texture.ITextureSheet;
+
+public class AbsorptionComponent implements IRenderComponent {
+	@Override
+	public boolean render(RenderContext ctx) {
+		if (!ctx.shouldRender()
+				|| !ctx.config.bool(BooleanOption.ABSORPTION_ENABLE)
+				|| !ctx.config.bool(BooleanOption.HEALTH_ENABLE)
+				|| ctx.config.bool(BooleanOption.ABSORPTION_OVERLAY)
+				|| ctx.config.bool(BooleanOption.HEALTH_HIDDEN))
+			return false;
+		
+		ctx.profiler.push("absorption");
+		ITextureSheet tex = tex(ctx).bind(ctx);
+		float absorbAmp = ctx.config.dec(FloatOption.ABSORPTION_VALUE);
+		int absorb = ctx.math.ceil(ctx.data.absorption());
+		int fullBorders = ctx.math.floor(0.05F * absorb * absorbAmp);
+		
+		if (absorb <= 0 || absorbAmp <= 0) return popReturn(ctx, false);
+		
+		boolean highlight = Components.HEALTH.healthBlinkTime() > Components.HEALTH.lastGuiTicks()
+				&& (Components.HEALTH.healthBlinkTime() - Components.HEALTH.lastGuiTicks()) / 3L % 2L == 1L;
+		
+		for (int i = 9; i >= 0; i--) {
+			if (i > fullBorders) continue;
+			
+			int heartX = ctx.x + i * 8;
+			int heartY = Components.HEALTH.lastHeartY()[i]; // borders should of course line up with hearts :)
+			
+			if (i < fullBorders) tex.drawAbsorb(ctx, heartX, heartY, 20, highlight);
+			else if (i == fullBorders && (absorb * absorbAmp) % 20 != 0)
+				tex.drawAbsorb(ctx, heartX, heartY, ctx.math.ceil(absorb * absorbAmp) % 20, highlight);
+		}
+		return popReturn(ctx, true);
+	}
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/render/AbsorptionOverlayComponent.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/render/AbsorptionOverlayComponent.java
+文件名：AbsorptionOverlayComponent.java
+文件大小：2794 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.render;
+
+import dev.cheos.armorpointspp.core.IRenderComponent;
+import dev.cheos.armorpointspp.core.RenderContext;
+import dev.cheos.armorpointspp.core.adapter.IConfig.BooleanOption;
+import dev.cheos.armorpointspp.core.adapter.IConfig.EnumOption;
+import dev.cheos.armorpointspp.core.texture.ITextureSheet;
+import dev.cheos.armorpointspp.core.texture.ITextureSheet.OverlaySprite;
+
+public class AbsorptionOverlayComponent implements IRenderComponent {
+	@Override
+	public boolean render(RenderContext ctx) {
+		if (!ctx.shouldRender()
+				|| !ctx.config.bool(BooleanOption.ABSORPTION_ENABLE)
+				|| !ctx.config.bool(BooleanOption.HEALTH_ENABLE)
+				|| !ctx.config.bool(BooleanOption.ABSORPTION_OVERLAY)
+				|| ctx.config.bool(BooleanOption.HEALTH_HIDDEN))
+			return false;
+		
+		ctx.profiler.push("absorption");
+		ITextureSheet tex = tex(ctx).bind(ctx);
+		boolean frozen   = ctx.data.isFullyFrozen();
+		boolean hardcore = ctx.data.isHardcore() || ctx.data.isEffectActive("spectrum:divinity");
+		int health       = ctx.math.ceil(ctx.data.health());
+		int heartStack   = (health - 1) / 20;
+		int absorb       = ctx.math.ceil(ctx.data.absorption());
+		int totalHealth  = health + absorb;
+		
+		if (absorb <= 0) return popReturn(ctx, false);
+		
+		for (int i = 0; i <= 9; i++) {
+			int heartX = ctx.x + i * 8;
+			int heartY = Components.HEALTH.lastHeartY()[i];
+			int heartValue = i * 2 + heartStack * 20 + 1;
+			int heartValueAbove = heartValue + 20;
+			
+			if (absorb >= 20) tex.drawAbsorbHeart(ctx, heartX, heartY, false, false, hardcore); // small optimization
+			else if (heartValueAbove <= totalHealth) tex.drawAbsorbHeart(ctx, heartX, heartY, heartValueAbove == totalHealth, false, hardcore);
+			else if (heartValue == health) tex.drawAbsorbHeart(ctx, heartX + 5, heartY, true, true, hardcore);
+			else if (heartValue < totalHealth && heartValue > health) tex.drawAbsorbHeart(ctx, heartX, heartY, false, false, hardcore);
+			else if (heartValue == totalHealth) tex.drawAbsorbHeart(ctx, heartX, heartY, true, false, hardcore);
+			
+			// draw frostbite here, as we overlay hearts directly
+			if (frozen)
+				switch (ctx.config.enm(EnumOption.FROSTBITE_STYLE)) {
+					case FULL:
+						if (heartValue <= totalHealth)
+							tex.drawOverlay(ctx, heartX, heartY, heartValue == totalHealth, hardcore, OverlaySprite.FROSTBITE_FULL);
+						break;
+					case OVERLAY:
+						if (heartValue <= totalHealth)
+							tex.drawOverlay(ctx, heartX, heartY, heartValue == totalHealth, hardcore, OverlaySprite.FROSTBITE);
+						break;
+					case ICON: // fallthrough, icon is default
+					default:
+						if (heartValue < totalHealth)
+							tex.drawOverlay(ctx, heartX, heartY, false, hardcore, OverlaySprite.FROSTBITE_ICON);
+						break;
+				}
+		}
+		return popReturn(ctx, true);
+	}
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/render/ArmorComponent.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/render/ArmorComponent.java
+文件名：ArmorComponent.java
+文件大小：1565 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.render;
+
+import java.awt.Color;
+
+import dev.cheos.armorpointspp.core.IRenderComponent;
+import dev.cheos.armorpointspp.core.RenderContext;
+import dev.cheos.armorpointspp.core.adapter.IConfig.BooleanOption;
+import dev.cheos.armorpointspp.core.texture.ITextureSheet;
+
+public class ArmorComponent implements IRenderComponent {
+	@Override
+	public boolean render(RenderContext ctx) {
+		if (!ctx.shouldRenderArmor() || !ctx.config.bool(BooleanOption.ARMOR_ENABLE) || ctx.config.bool(BooleanOption.ARMOR_HIDDEN))
+			return false;
+		
+		ctx.profiler.push("armor");
+		ITextureSheet tex = tex(ctx).bind(ctx);
+		int armor = Math.min(ctx.data.armor(), 240);
+		if (!ctx.config.bool(BooleanOption.DISABLE_EASTEREGGS) && armor == Math.min(137, ctx.data.maxArmor())) {
+			renderRainbowArmor(ctx, ctx.x, ctx.y);
+			return popReturn(ctx, true);
+		}
+		
+		for (int i = 0; i < 10; i++)
+			tex.drawArmor(ctx, ctx.x + 8 * i, ctx.y, (int) ((armor - 2 * (i + 1) + 20) * 0.05F), (armor % 20) - 2 * i == 1);
+		return popReturn(ctx, true);
+	}
+	
+	// fun rainbow armor bar only visible on 137 armor -- why? because 137 is my favourite number ^^
+	private void renderRainbowArmor(RenderContext ctx, int x, int y) {
+		ITextureSheet tex = tex(ctx);
+		ctx.poseStack.pushPose();
+		
+		long millis = ctx.data.millis() / 40;
+		int color = 0;
+		
+		for (int i = 0; i < 10; i++) {
+			millis += 5;
+			color = Color.HSBtoRGB((millis % 360) / 360F, 1, 1);
+			ctx.renderer.setColorRGB(color);
+			tex.drawArmor(ctx, x + 8 * i, y, 1, false);
+		}
+		ctx.poseStack.popPose();
+	}
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/render/ArmorTextComponent.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/render/ArmorTextComponent.java
+文件名：ArmorTextComponent.java
+文件大小：3799 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.render;
+
+import java.awt.Color;
+
+import dev.cheos.armorpointspp.core.*;
+import dev.cheos.armorpointspp.core.RenderableText.Alignment;
+import dev.cheos.armorpointspp.core.adapter.IConfig.*;
+
+public class ArmorTextComponent implements IRenderComponent {
+	@Override
+	public boolean render(RenderContext ctx) {
+		if (!ctx.shouldRenderArmor() || !ctx.config.bool(BooleanOption.ARMOR_TEXT_ENABLE) || ctx.config.bool(BooleanOption.ARMOR_HIDDEN))
+			return false;
+		
+		ctx.profiler.push("armorText");
+		int armor = ctx.data.armor();
+		Suffix.Type type = ctx.config.enm(EnumOption.SUFFIX);
+		int resistance = ctx.data.isEffectActive(ctx.data.effects().resistance())
+				? ctx.data.getActiveEffect(ctx.data.effects().resistance()).amplifier()
+				: 0;
+		
+		int power = armor == 0 ? 0 : (int) Math.log10(armor);
+		if (type != Suffix.Type.SCI && power < 27) power = power / 3 * 3; // 100 YOTTA is max. if higher switch to SCI notation
+		else type = Suffix.Type.SCI;
+		
+		String significand = String.valueOf(ctx.math.floor(armor / Math.pow(10, power) * 10F) / 10F);    // one decimal precision
+		if(significand.endsWith(".0")) significand = significand.substring(0, significand.length() - 2); // strip .0
+		significand += (type == Suffix.Type.SCI ? "E" + power : Suffix.byPow(power).getSuffix(type));    // add suffix
+		
+		int color;
+		if (!ctx.config.bool(BooleanOption.DISABLE_EASTEREGGS) && armor == Math.min(137, ctx.data.maxArmor()))
+			color = Color.HSBtoRGB((((ctx.data.millis() + 80) / 40) % 360) / 360F, 1, 1);
+		else if (resistance >= 4) color = ctx.config.hex(HexOption.TEXT_COLOR_FULL_RESISTANCE);
+		else if (armor == 0) color = ctx.config.hex(HexOption.TEXT_COLOR_ARMOR_0);
+		else if (armor < 25) color = ctx.config.hex(HexOption.TEXT_COLOR_ARMOR_LT25);
+		else if (armor > 25) color = ctx.config.hex(HexOption.TEXT_COLOR_ARMOR_GT25);
+		else color = ctx.config.hex(HexOption.TEXT_COLOR_ARMOR_EQ25);
+		
+		if (ctx.config.bool(BooleanOption.ARMOR_TEXT_CONFIG_ENABLE))
+			 new RenderableText(significand)
+				.withAlignment(ctx.config.enm(EnumOption.ARMOR_TEXT_ALIGNMENT))
+				.withColor(color)
+				.withShadow(ctx.config.bool(BooleanOption.TEXT_SHADOW))
+				.append(toughness(ctx))
+				.render(ctx.poseStack, ctx.renderer, ctx.config.dec(FloatOption.ARMOR_TEXT_X), ctx.config.dec(FloatOption.ARMOR_TEXT_Y));
+		else new RenderableText(significand)
+				.withAlignment(Alignment.RIGHT)
+				.withColor(color)
+				.withShadow(ctx.config.bool(BooleanOption.TEXT_SHADOW))
+				.append(toughness(ctx))
+				.render(ctx.poseStack, ctx.renderer, ctx.x - 1, ctx.y + 0.5F);
+		return popReturn(ctx, true);
+	}
+	
+	private static RenderableText toughness(RenderContext ctx) {
+		if (!ctx.config.bool(BooleanOption.TOUGHNESS_ENABLE) || ctx.config.bool(BooleanOption.TOUGHNESS_BAR))
+			return RenderableText.EMPTY;
+		
+		double toughness = ctx.data.toughness();
+		if (toughness == 0)
+			return RenderableText.EMPTY;
+		
+		Suffix.Type type = ctx.config.enm(EnumOption.SUFFIX);
+		int power = toughness == 0 ? 0 : (int) Math.log10(toughness);
+		if (type != Suffix.Type.SCI && power < 27) power -= power % 3;
+		else type = Suffix.Type.SCI; // 100 YOTTA is max. if higher switch to SCI notation
+		
+		String significand = String.valueOf(ctx.math.floor(toughness / Math.pow(10, power) * 10F) / 10F);    // one decimal precision
+		if(significand.endsWith(".0")) significand = significand.substring(0, significand.length() - 2); // strip .0
+		significand += (type == Suffix.Type.SCI ? "E" + power : Suffix.byPow(power).getSuffix(type));    // add suffix
+		
+		int color = ctx.config.hex(HexOption.TEXT_COLOR_TOUGHNESS);
+		return new RenderableText("+")
+				.pad(1)
+				.withColor(ctx.config.hex(HexOption.TEXT_COLOR_SEPARATOR))
+				.append(new RenderableText(significand).withColor(color));
+		
+	}
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/render/Components.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/render/Components.java
+文件名：Components.java
+文件大小：1676 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.render;
+
+public class Components {
+	public static final             ArmorComponent ARMOR           = new             ArmorComponent();
+	public static final      VanillaArmorComponent VANILLA_ARMOR   = new      VanillaArmorComponent();
+	public static final        ResistanceComponent RESISTANCE      = new        ResistanceComponent();
+	public static final        ProtectionComponent PROTECTION      = new        ProtectionComponent();
+	public static final         ToughnessComponent TOUGHNESS       = new         ToughnessComponent();
+	public static final  ToughnessOverlayComponent TOUGHNESS_OVER  = new  ToughnessOverlayComponent();
+	public static final            HealthComponent HEALTH          = new            HealthComponent();
+	public static final        AbsorptionComponent ABSORPTION      = new        AbsorptionComponent();
+	public static final AbsorptionOverlayComponent ABSORPTION_OVER = new AbsorptionOverlayComponent();
+	public static final         ArmorTextComponent ARMOR_TEXT      = new         ArmorTextComponent();
+	public static final        HealthTextComponent HEALTH_TEXT     = new        HealthTextComponent();
+	public static final      TablistScoreComponent TABLIST_SCORE   = new      TablistScoreComponent();
+	public static final     ToughnessTextComponent TOUGHNESS_TEXT  = new     ToughnessTextComponent();
+	public static final       MagicShieldComponent MAGIC_SHIELD    = new       MagicShieldComponent();
+	
+	public static final             DebugComponent DEBUG           = new             DebugComponent();
+	public static final         DebugTextComponent DEBUG_TEXT      = new         DebugTextComponent();
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/render/DebugComponent.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/render/DebugComponent.java
+文件名：DebugComponent.java
+文件大小：742 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.render;
+
+import dev.cheos.armorpointspp.core.IRenderComponent;
+import dev.cheos.armorpointspp.core.RenderContext;
+import dev.cheos.armorpointspp.core.adapter.IConfig.BooleanOption;
+
+public class DebugComponent implements IRenderComponent {
+	@Override
+	public boolean render(RenderContext ctx) {
+		if (!ctx.shouldRender() || !ctx.config.bool(BooleanOption.DEBUG))
+			return false;
+		
+		ctx.profiler.push("appp.debug");
+		tex(ctx).bind(ctx);
+		ctx.poseStack.pushPose();
+		ctx.poseStack.scale(0.8F, 0.8F, 1);
+		ctx.poseStack.translate(1.25D, 6.25D, 0);
+		ctx.renderer.blit(ctx.poseStack, 5, 25, 0, 0, tex(ctx).texWidth(), tex(ctx).texHeight());
+		ctx.poseStack.popPose();
+		return popReturn(ctx, true);
+	}
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/render/DebugTextComponent.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/render/DebugTextComponent.java
+文件名：DebugTextComponent.java
+文件大小：2495 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.render;
+
+import dev.cheos.armorpointspp.core.*;
+import dev.cheos.armorpointspp.core.RenderableText.Alignment;
+import dev.cheos.armorpointspp.core.adapter.IConfig.BooleanOption;
+import dev.cheos.armorpointspp.core.adapter.IConfig.HexOption;
+
+public class DebugTextComponent implements IRenderComponent {
+	private static RenderableText right  = new RenderableText("this should be left aligned and red with no shadow").withAlignment(Alignment.LEFT  ).withColor(0xff0000).withShadow(false);
+	private static RenderableText center = new RenderableText("this should be centered and green"                 ).withAlignment(Alignment.CENTER).withColor(0x00ff00);
+	private static RenderableText left   = new RenderableText("this should be right aligned and blue"             ).withAlignment(Alignment.RIGHT ).withColor(0x0000ff);
+	
+	@Override
+	public boolean render(RenderContext ctx) {
+		if (!ctx.shouldRender() || !ctx.config.bool(BooleanOption.DEBUG))
+			return false;
+		
+		ctx.profiler.push("appp.debugText");
+		float maxHp  = ctx.data.maxHealth();
+		float absorb = ctx.data.absorption();
+		int   hpRows = ctx.math.ceil((maxHp + absorb) / 20F);
+		
+		ctx.renderer.text(ctx.poseStack, "armor should be here (vanilla)", ctx.x, ctx.y, 0xff0000);
+		ctx.renderer.text(ctx.poseStack, "hp: "   + maxHp , 5,  5, 0xffffff);
+		ctx.renderer.text(ctx.poseStack, "rows: " + hpRows, 5, 15, 0xffffff);
+		
+		ctx.renderer.text(ctx.poseStack, "armor = 0" , ctx.x, ctx.y - 40, ctx.config.hex(HexOption.TEXT_COLOR_ARMOR_0   ));
+		ctx.renderer.text(ctx.poseStack, "armor < 25", ctx.x, ctx.y - 30, ctx.config.hex(HexOption.TEXT_COLOR_ARMOR_LT25));
+		ctx.renderer.text(ctx.poseStack, "armor = 25", ctx.x, ctx.y - 20, ctx.config.hex(HexOption.TEXT_COLOR_ARMOR_EQ25));
+		ctx.renderer.text(ctx.poseStack, "armor > 25", ctx.x, ctx.y - 10, ctx.config.hex(HexOption.TEXT_COLOR_ARMOR_GT25));
+		
+		right .render(ctx.poseStack, ctx.renderer, ctx.x, ctx.y - 60);
+		center.render(ctx.poseStack, ctx.renderer, ctx.x, ctx.y - 70);
+		left  .render(ctx.poseStack, ctx.renderer, ctx.x, ctx.y - 80);
+		
+		new RenderableText("R")
+		.withColor(0xff0000)
+		.withAlignment(Alignment.CENTER)
+		.append(
+				new RenderableText("G")
+				.withColor(0x00ff00)
+				.append(
+						new RenderableText("B")
+						.withColor(0x0000ff)))
+		.append(
+				new RenderableText("A")
+				.withColor(0xffffff)
+				.withShadow(false))
+		.render(ctx.poseStack, ctx.renderer, ctx.x, ctx.y - 50);
+		return popReturn(ctx, true);
+	}
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/render/HealthComponent.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/render/HealthComponent.java
+文件名：HealthComponent.java
+文件大小：4292 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.render;
+
+import java.util.Random;
+
+import dev.cheos.armorpointspp.core.IRenderComponent;
+import dev.cheos.armorpointspp.core.RenderContext;
+import dev.cheos.armorpointspp.core.adapter.IConfig.BooleanOption;
+import dev.cheos.armorpointspp.core.adapter.IConfig.EnumOption;
+import dev.cheos.armorpointspp.core.texture.ITextureSheet;
+import dev.cheos.armorpointspp.core.texture.ITextureSheet.HeartStyle;
+import dev.cheos.armorpointspp.core.texture.ITextureSheet.OverlaySprite;
+
+public class HealthComponent implements IRenderComponent {
+	private final Random random = new Random();
+	private int lastHealth, displayHealth, lastGuiTicks;
+	private long healthBlinkTime, lastHealthTime;
+	private int[] lastHeartY = new int[10];
+	
+	@Override
+	public boolean render(RenderContext ctx) {
+		if (!ctx.shouldRender() || !ctx.config.bool(BooleanOption.HEALTH_ENABLE) || ctx.config.bool(BooleanOption.HEALTH_HIDDEN))
+			return false;
+		
+		ctx.profiler.push("health");
+		ITextureSheet tex = tex(ctx).bind(ctx);
+		boolean frozen   = ctx.data.isFullyFrozen();
+		boolean hardcore = ctx.data.isHardcore() || ctx.data.isEffectActive("spectrum:divinity");
+		boolean absorbOv = ctx.data.absorption() > 0 && ctx.config.bool(BooleanOption.ABSORPTION_ENABLE) && ctx.config.bool(BooleanOption.ABSORPTION_OVERLAY);
+		int health       = ctx.math.ceil(ctx.data.health());
+		int heartStack   = Math.min((health - 1) / 20, 10);
+		
+		this.lastGuiTicks = ctx.data.guiTicks();
+		
+		boolean blink = !frozen && this.healthBlinkTime > this.lastGuiTicks && (this.healthBlinkTime - this.lastGuiTicks) / 3L % 2L == 1L;
+		int regen = ctx.data.isEffectActive(ctx.data.effects().regeneration())
+				? this.lastGuiTicks % 25
+				: -1;
+		HeartStyle style = ctx.data.isEffectActive(ctx.data.effects().poison())
+				? HeartStyle.POISON
+				: ctx.data.isEffectActive(ctx.data.effects().wither())
+					? HeartStyle.WITHER
+					: HeartStyle.NORMAL;
+		
+		if (health < this.lastHealth && ctx.data.invulnTime() > 0) {
+			this.lastHealthTime = ctx.data.millis();
+			this.healthBlinkTime = this.lastGuiTicks + 20;
+		} else if (health > this.lastHealth && ctx.data.invulnTime() > 0) {
+			this.lastHealthTime = ctx.data.millis();
+			this.healthBlinkTime = this.lastGuiTicks + 10;
+		}
+		
+		if (ctx.data.millis() - this.lastHealthTime > 1000L) {
+			this.displayHealth = health;
+			this.lastHealthTime = ctx.data.millis();
+		}
+		
+		this.lastHealth = health;
+		this.random.setSeed(this.lastGuiTicks * 312871L);
+		
+		int max = ctx.config.bool(BooleanOption.HEALTH_BG_ALWAYS_SHOW_10) ? 9 : (int) Math.min(10, (ctx.data.maxHealth() + 1) * 0.5F) - 1;
+		for (int i = max; i >= 0; i--) {
+			int heartX = ctx.x + i * 8;
+			int heartY = ctx.y;
+			int heartValue = i * 2 + heartStack * 20 + 1;
+			
+			if (health <= 4) heartY += this.random.nextInt(2);
+			if (i == regen && !frozen) heartY -= 2;
+			
+			this.lastHeartY[i] = heartY;
+			
+			tex.drawHeartBG(ctx, heartX, heartY, blink, hardcore); // draw background
+			if (heartValue >= health && heartStack > 0)    tex.drawHeart(ctx, heartX, heartY, heartStack - 1, false, blink, hardcore, style); // draw heart row below
+			if (blink && heartValue <= this.displayHealth) tex.drawHeart(ctx, heartX, heartY, heartStack, heartValue == this.displayHealth, true , hardcore, style);
+			if (         heartValue <=             health) tex.drawHeart(ctx, heartX, heartY, heartStack, heartValue ==             health, false, hardcore, style);
+			
+			if (frozen && !absorbOv)
+				switch (ctx.config.enm(EnumOption.FROSTBITE_STYLE)) {
+					case FULL:
+						if (heartValue <= health)
+							tex.drawOverlay(ctx, heartX, heartY, heartValue == health, hardcore, OverlaySprite.FROSTBITE_FULL);
+						break;
+					case OVERLAY:
+						if (heartValue <= health)
+							tex.drawOverlay(ctx, heartX, heartY, heartValue == health, hardcore, OverlaySprite.FROSTBITE);
+						break;
+					case ICON: // fallthrough, icon is default
+					default:
+						if (heartValue <  health)
+							tex.drawOverlay(ctx, heartX, heartY, false, hardcore, OverlaySprite.FROSTBITE_ICON);
+						break;
+				}
+		}
+		return popReturn(ctx, true);
+	}
+	
+	public int[] lastHeartY() {
+		return this.lastHeartY;
+	}
+	
+	int lastGuiTicks() {
+		return this.lastGuiTicks;
+	}
+	
+	long healthBlinkTime() {
+		return this.healthBlinkTime;
+	}
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/render/HealthTextComponent.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/render/HealthTextComponent.java
+文件名：HealthTextComponent.java
+文件大小：2614 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.render;
+
+import dev.cheos.armorpointspp.core.*;
+import dev.cheos.armorpointspp.core.RenderableText.Alignment;
+import dev.cheos.armorpointspp.core.adapter.IConfig.*;
+
+public class HealthTextComponent implements IRenderComponent {
+	@Override
+	public boolean render(RenderContext ctx) {
+		if (!ctx.shouldRender() || !ctx.config.bool(BooleanOption.HEALTH_TEXT_ENABLE) || ctx.config.bool(BooleanOption.HEALTH_HIDDEN))
+			return false;
+		
+		ctx.profiler.push("healthText");
+		RenderableText text = new RenderableText("")
+				.withShadow(ctx.config.bool(BooleanOption.TEXT_SHADOW));
+		
+		int freeze = Math.round(100 * ctx.data.percentFrozen());
+		int maxHp  = ctx.math.ceil(ctx.data.maxHealth());
+		int absorb = ctx.math.ceil(ctx.data.absorption());
+		int health = ctx.math.ceil(ctx.data.health());
+		int hpcol  = ctx.data.isFullyFrozen()
+				? ctx.config.hex(HexOption.TEXT_COLOR_FROSTBITE)
+				: ctx.data.isEffectActive(ctx.data.effects().poison())
+						? ctx.config.hex(HexOption.TEXT_COLOR_POISON)
+						: ctx.data.isEffectActive(ctx.data.effects().wither())
+								? ctx.config.hex(HexOption.TEXT_COLOR_WITHER)
+								: ctx.config.hex(HexOption.TEXT_COLOR_HEART);
+		
+		if(health > maxHp) health = maxHp;
+		
+		text.append(new RenderableText(health).padRight(1).withColor(hpcol));
+		
+		if(health < maxHp) {
+			text.append(new RenderableText("/"   ).padRight(1).withColor(ctx.config.hex(HexOption.TEXT_COLOR_SEPARATOR )));
+			text.append(new RenderableText(maxHp ).padRight(1).withColor(hpcol));
+		}
+		
+		if(absorb > 0) {
+			text.append(new RenderableText("+"   ).padRight(1).withColor(ctx.config.hex(HexOption.TEXT_COLOR_SEPARATOR )));
+			text.append(new RenderableText(absorb).padRight(1).withColor(ctx.config.hex(HexOption.TEXT_COLOR_ABSORPTION)));
+		}
+		
+		if (freeze > 0 && ctx.config.bool(BooleanOption.FROSTBITE_TEXT_ENABLE)) {
+			text.append(new RenderableText(","   ).padRight(1).withColor(ctx.config.hex(HexOption.TEXT_COLOR_SEPARATOR)));
+			text.append(new RenderableText(freeze).padRight(1).withColor(ctx.config.hex(HexOption.TEXT_COLOR_FROSTBITE)));
+			text.append(new RenderableText("%"   ).padRight(1).withColor(ctx.config.hex(HexOption.TEXT_COLOR_SEPARATOR)));
+		}
+
+		if (ctx.config.bool(BooleanOption.HEALTH_TEXT_CONFIG_ENABLE))
+			 text.withAlignment(ctx.config.enm(EnumOption.HEALTH_TEXT_ALIGNMENT)).render(ctx.poseStack, ctx.renderer, ctx.config.dec(FloatOption.HEALTH_TEXT_X), ctx.config.dec(FloatOption.HEALTH_TEXT_Y));
+		else text.withAlignment(Alignment.RIGHT).render(ctx.poseStack, ctx.renderer, ctx.x, ctx.y + 0.5F);
+		return popReturn(ctx, true);
+	}
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/render/MagicShieldComponent.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/render/MagicShieldComponent.java
+文件名：MagicShieldComponent.java
+文件大小：1086 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.render;
+
+import dev.cheos.armorpointspp.core.IRenderComponent;
+import dev.cheos.armorpointspp.core.RenderContext;
+import dev.cheos.armorpointspp.core.adapter.IConfig.BooleanOption;
+import dev.cheos.armorpointspp.core.texture.ITextureSheet;
+
+public class MagicShieldComponent implements IRenderComponent {
+	@Override
+	public boolean render(RenderContext ctx) {
+		if (!ctx.shouldRenderArmor() || !ctx.config.bool(BooleanOption.POTIONCORE_COMPAT) || ctx.config.bool(BooleanOption.ARMOR_HIDDEN))
+			return false;
+		
+		ctx.profiler.push("magic_resistance");
+		if (!ctx.config.bool(BooleanOption.ARMOR_ENABLE) && ctx.data.armor() <= 0)
+			popReturn(ctx, false); // we use vanilla armor which doesn't draw if 0
+		
+		int magicShield = (int) (ctx.data.potionCore().magicShield() * 0.5);
+		if (magicShield <= 0) return popReturn(ctx, false);
+		ITextureSheet tex = tex(ctx).bind(ctx);
+		
+		for (int i = 0; i < 10 && i < magicShield; i++)
+			tex.drawMagicShield(ctx, ctx.x + 8 * i, ctx.y, (int) ctx.data.millis() / 110 + i);
+		return popReturn(ctx, true);
+	}
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/render/ProtectionComponent.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/render/ProtectionComponent.java
+文件名：ProtectionComponent.java
+文件大小：1796 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.render;
+
+import dev.cheos.armorpointspp.core.IRenderComponent;
+import dev.cheos.armorpointspp.core.RenderContext;
+import dev.cheos.armorpointspp.core.adapter.IConfig.BooleanOption;
+import dev.cheos.armorpointspp.core.adapter.IConfig.FloatOption;
+import dev.cheos.armorpointspp.core.adapter.IItemStack;
+import dev.cheos.armorpointspp.core.texture.ITextureSheet;
+import dev.cheos.armorpointspp.core.texture.ITextureSheet.OverlaySprite;
+
+public class ProtectionComponent implements IRenderComponent {
+	@Override
+	public boolean render(RenderContext ctx) {
+		if (!ctx.shouldRenderArmor() || !ctx.config.bool(BooleanOption.PROTECTION_ENABLE) || ctx.config.bool(BooleanOption.ARMOR_HIDDEN))
+			return false;
+		
+		ctx.profiler.push("protection");
+		int protection = 0;
+		for (IItemStack stack : ctx.data.armorSlots()) { // adds 0 for empty stacks
+			ctx.ench.getLevel(ctx.data.enchantments().protection(), stack);
+			protection += ctx.ench.getLevel(ctx.data.enchantments().protection(), stack);
+			protection += ctx.ench.getLevel(ctx.data.enchantments().blastProtection(), stack);
+			protection += ctx.ench.getLevel(ctx.data.enchantments().fireProtection(), stack);
+			protection += ctx.ench.getLevel(ctx.data.enchantments().projectileProtection(), stack);
+		}
+		ITextureSheet tex = tex(ctx).bind(ctx);
+		
+		protection = ctx.math.ceil(protection * ctx.config.dec(FloatOption.PROTECTION_VALUE));
+		protection = ctx.math.clamp(protection, 0, 10);
+		if (protection <= 0) return popReturn(ctx, false);
+		
+		for (int i = 0; i < 10 && i < protection; i++) // actually, this double check for limit = 10 is not necessary... still feels better with it
+			tex.drawOverlay(ctx, ctx.x + 8 * i, ctx.y, false, false, OverlaySprite.PROTECTION);
+		return popReturn(ctx, true);
+	}
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/render/ResistanceComponent.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/render/ResistanceComponent.java
+文件名：ResistanceComponent.java
+文件大小：2005 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.render;
+
+import dev.cheos.armorpointspp.core.IRenderComponent;
+import dev.cheos.armorpointspp.core.RenderContext;
+import dev.cheos.armorpointspp.core.adapter.IConfig.BooleanOption;
+import dev.cheos.armorpointspp.core.adapter.IConfig.FloatOption;
+import dev.cheos.armorpointspp.core.texture.ITextureSheet;
+import dev.cheos.armorpointspp.core.texture.ITextureSheet.OverlaySprite;
+
+public class ResistanceComponent implements IRenderComponent {
+	@Override
+	public boolean render(RenderContext ctx) {
+		if (!ctx.shouldRenderArmor() || !ctx.config.bool(BooleanOption.RESISTANCE_ENABLE) || ctx.config.bool(BooleanOption.ARMOR_HIDDEN))
+			return false;
+		
+		ctx.profiler.push("resistance");
+		int armor = ctx.data.armor();
+		int resistance = 0;
+		
+		if (ctx.data.isEffectActive(ctx.data.effects().resistance()))
+			resistance = 1 + ctx.data.getActiveEffect(ctx.data.effects().resistance()).amplifier();
+		if (ctx.data.isPotionCoreLoaded())
+			resistance += (ctx.data.potionCore().resistance() - 1) * 5; // potioncore: 0 if unsupported, 1 := no resistance, 2 := 100% resistance, <1 := weakening
+		resistance = Math.min(resistance, 5);                          // resistance maxes out at 5
+		
+		resistance = ctx.math.ceil(resistance * ctx.config.dec(FloatOption.RESISTANCE_VALUE));
+		resistance = ctx.math.clamp(resistance, 0, 10);
+		if (resistance <= 0) return popReturn(ctx, false);
+		
+		ITextureSheet tex = tex(ctx).bind(ctx);
+		
+		for (int i = 0; i < 10 && i < resistance; i++, armor -= 2) // actually, this double check for limit = 10 is not necessary... still feels better with it
+			if      (armor      <= 0) tex.drawOverlay(ctx, ctx.x + 8 * i, ctx.y, false, false, OverlaySprite.RESISTANCE_NONE);
+			else if (armor % 20 == 1) tex.drawOverlay(ctx, ctx.x + 8 * i, ctx.y, false, false, OverlaySprite.RESISTANCE_HALF);
+			else                      tex.drawOverlay(ctx, ctx.x + 8 * i, ctx.y, false, false, OverlaySprite.RESISTANCE_FULL);
+		return popReturn(ctx, true);
+	}
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/render/TablistScoreComponent.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/render/TablistScoreComponent.java
+文件名：TablistScoreComponent.java
+文件大小：4910 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.render;
+
+import java.awt.Color;
+import java.util.function.Consumer;
+
+import dev.cheos.armorpointspp.core.*;
+import dev.cheos.armorpointspp.core.RenderableText.Alignment;
+import dev.cheos.armorpointspp.core.adapter.IConfig.BooleanOption;
+import dev.cheos.armorpointspp.core.adapter.IConfig.IntegerOption;
+import dev.cheos.armorpointspp.core.texture.ITextureSheet;
+import dev.cheos.armorpointspp.core.texture.ITextureSheet.HeartStyle;
+
+public class TablistScoreComponent implements IRenderComponent {
+	@Override
+	public boolean render(RenderContext ctx) { // no profiling for tab lists in vanilla? interesting
+		if (!ctx.config.bool(BooleanOption.TABLIST_HEALTH_ENABLE))
+			return false;
+		
+		Integer scoreObj = ctx.property("score");
+		if (scoreObj == null) return false;
+		int score = scoreObj;
+		
+		if (ctx.<Boolean>property("rendertype.hearts")) {
+			ITextureSheet tex = tex(ctx).bind(ctx);
+			long millis = ctx.data.millis();
+			long visibilityId = ctx.property("visibilityid");
+			long renderVisibilityId = ctx.property("player.rendervisibilityid");
+			long lastHealthTime = ctx.property("player.lasthealthtime");
+			long healthBlinkTime = ctx.property("player.healthblinktime");
+			int lastHealth = ctx.property("player.lasthealth");
+			int displayHealth = ctx.property("player.displayhealth");
+			Consumer<Long> setLastHealthTime = ctx.property("player.setlasthealthtime");
+			Consumer<Long> setHealthBlinkTime = ctx.property("player.sethealthblinktime");
+			Consumer<Long> setRenderVisibilityId = ctx.property("player.setrendervisibilityid");
+			Consumer<Integer> setLastHealth = ctx.property("player.setlasthealth");
+			Consumer<Integer> setDisplayHealth = ctx.property("player.setdisplayhealth");
+			
+			if (visibilityId == renderVisibilityId) {
+				if (score < lastHealth) {
+					setLastHealthTime.accept(millis);
+					setHealthBlinkTime.accept(ctx.data.guiTicks() + 20L);
+				} else if (score > lastHealth) {
+					setLastHealthTime.accept(millis);
+					setHealthBlinkTime.accept(ctx.data.guiTicks() + 10L);
+				}
+			}
+			
+			if (millis - lastHealthTime > 1000L || visibilityId != renderVisibilityId) {
+				setDisplayHealth.accept(score);
+				setLastHealthTime.accept(millis);
+			}
+			
+			setRenderVisibilityId.accept(visibilityId);
+			setLastHealth.accept(score);
+			
+			int health = Math.max(score, displayHealth);
+			int heartCount = ctx.math.ceil(Math.max(score, displayHealth) / 2F);
+			int heartStack = Math.min((health - 1) / ctx.config.num(IntegerOption.TABLIST_MAX_HEART_COUNT) / 2, 10);
+			boolean blink = healthBlinkTime > ctx.data.guiTicks() && (healthBlinkTime - ctx.data.guiTicks()) / 3L % 2L == 1L;
+			
+			if (heartCount > 0) {
+				if (heartCount <= (heartStack + 1) * ctx.config.num(IntegerOption.TABLIST_MAX_HEART_COUNT)) {
+					int max = ctx.config.bool(BooleanOption.TABLIST_HEALTH_ALWAYS_MAX)
+							? ctx.config.num(IntegerOption.TABLIST_MAX_HEART_COUNT)
+							: Math.min(ctx.config.num(IntegerOption.TABLIST_MAX_HEART_COUNT), heartCount);
+					
+					for (int i = 0; i < max; i++) { // for reference, see class HealthComponent
+						int heartX = ctx.x + i * 8;
+						int heartValue = i * 2 + heartStack * ctx.config.num(IntegerOption.TABLIST_MAX_HEART_COUNT) * 2 + 1;
+						
+						tex.drawHeartBG(ctx, heartX, ctx.y, blink, ctx.data.isHardcore());
+						if (heartStack > 0 && heartValue >=        health) tex.drawHeart(ctx, heartX, ctx.y, heartStack - 1, false                  , blink, false, HeartStyle.NORMAL);
+						if (blink          && heartValue <= displayHealth) tex.drawHeart(ctx, heartX, ctx.y, heartStack, heartValue == displayHealth,  true, false, HeartStyle.NORMAL);
+						if (                  heartValue <=        health) tex.drawHeart(ctx, heartX, ctx.y, heartStack, heartValue ==        health, false, false, HeartStyle.NORMAL);
+					}
+				} else {
+					String healthText = String.valueOf(score);
+					if (ctx.<Integer>property("maxX") - ctx.renderer.width(healthText, "hp") >= ctx.x)
+						healthText += "hp";
+					if (ctx.config.bool(BooleanOption.DISABLE_EASTEREGGS))
+						ctx.renderer.text(ctx.poseStack, healthText, (ctx.<Integer>property("maxX") + ctx.x - ctx.renderer.width(healthText)) / 2, ctx.y, 0x00ff00);
+					else {
+						millis /= 40;
+						RenderableText text = new RenderableText("")
+							.withAlignment(Alignment.CENTER)
+							.withShadow(ctx.config.bool(BooleanOption.TEXT_SHADOW));
+						
+						for (String chr : healthText.split(""))
+							text.append(new RenderableText(chr).withColor(Color.HSBtoRGB(((millis -= 5) % 360) / 360F, 1, 1)));
+						text.render(ctx.poseStack, ctx.renderer, (ctx.<Integer>property("maxX") + ctx.x) / 2, ctx.y);
+					}
+				}
+			}
+		} else {
+			String text = ctx.<String>property("chatformatting.yellow") + score;
+			ctx.renderer.text(ctx.poseStack, text, ctx.<Integer>property("maxX") - ctx.renderer.width(text), ctx.y, 0xffffff);
+		}
+		return popReturn(ctx, true);
+	}
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/render/ToughnessComponent.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/render/ToughnessComponent.java
+文件名：ToughnessComponent.java
+文件大小：1178 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.render;
+
+import dev.cheos.armorpointspp.core.*;
+import dev.cheos.armorpointspp.core.adapter.IConfig.BooleanOption;
+import dev.cheos.armorpointspp.core.adapter.IConfig.EnumOption;
+import dev.cheos.armorpointspp.core.texture.ITextureSheet;
+
+public class ToughnessComponent implements IRenderComponent {
+	@Override
+	public boolean render(RenderContext ctx) {
+		if (!ctx.shouldRenderToughness() || !ctx.config.bool(BooleanOption.TOUGHNESS_ENABLE) || !ctx.config.bool(BooleanOption.TOUGHNESS_BAR))
+			return false;
+		
+		ctx.profiler.push("toughness");
+		ITextureSheet tex = tex(ctx).bind(ctx);
+		long toughness = ctx.math.floor(ctx.data.toughness() * 2);
+		EnableState mirroring = ctx.config.enm(EnumOption.TOUGHNESS_MIRRORING);
+		boolean mirror = mirroring == EnableState.ALWAYS || (mirroring == EnableState.AUTO && ctx.config.enm(EnumOption.TOUGHNESS_SIDE) == Side.RIGHT);
+		
+		for (int i = 0; i < 10; i++)
+			tex.drawToughness(
+					ctx,
+					ctx.x + 8 * (mirror ? 9 - i : i),
+					ctx.y,
+					(int) ((toughness - 2 * (i + 1) + 20) * 0.05F),
+					(toughness % 20) - 2 * i == 1,
+					false,
+					mirror);
+		
+		return popReturn(ctx, true);
+	}
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/render/ToughnessOverlayComponent.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/render/ToughnessOverlayComponent.java
+文件名：ToughnessOverlayComponent.java
+文件大小：1133 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.render;
+
+import dev.cheos.armorpointspp.core.IRenderComponent;
+import dev.cheos.armorpointspp.core.RenderContext;
+import dev.cheos.armorpointspp.core.adapter.IConfig.BooleanOption;
+import dev.cheos.armorpointspp.core.adapter.IConfig.FloatOption;
+import dev.cheos.armorpointspp.core.texture.ITextureSheet;
+
+public class ToughnessOverlayComponent implements IRenderComponent {
+	@Override
+	public boolean render(RenderContext ctx) {
+		if (!ctx.shouldRenderArmor()
+				|| !ctx.config.bool(BooleanOption.TOUGHNESS_ENABLE)
+				|| ctx.config.bool(BooleanOption.TOUGHNESS_BAR)
+				|| ctx.config.bool(BooleanOption.ARMOR_HIDDEN))
+			return false;
+		
+		ctx.profiler.push("toughness");
+		double toughness = (int) ctx.data.toughness();
+		toughness = ctx.math.ceil(toughness * ctx.config.dec(FloatOption.TOUGHNESS_VALUE));
+		if (toughness <= 0) return popReturn(ctx, false);
+		ITextureSheet tex = tex(ctx).bind(ctx);
+		
+		for (int i = 0; i < 10 && i < toughness; i++)
+			tex.drawToughness(ctx, ctx.x + 8 * i, ctx.y, (int) ((toughness - i - 1) * 0.1F), false, true, false);
+		return popReturn(ctx, true);
+	}
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/render/ToughnessTextComponent.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/render/ToughnessTextComponent.java
+文件名：ToughnessTextComponent.java
+文件大小：2184 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.render;
+
+import dev.cheos.armorpointspp.core.*;
+import dev.cheos.armorpointspp.core.adapter.IConfig.*;
+
+public class ToughnessTextComponent implements IRenderComponent {
+	@Override
+	public boolean render(RenderContext ctx) {
+		if (!ctx.shouldRenderToughness()
+				|| !ctx.config.bool(BooleanOption.TOUGHNESS_ENABLE)
+				|| !ctx.config.bool(BooleanOption.TOUGHNESS_BAR)
+				|| !ctx.config.bool(BooleanOption.TOUGHNESS_TEXT_ENABLE))
+			return false;
+		
+		ctx.profiler.push("toughnessText");
+		double toughness = ctx.data.toughness();
+		Suffix.Type type = ctx.config.enm(EnumOption.SUFFIX);
+		int power = toughness == 0 ? 0 : (int) Math.log10(toughness);
+		if (type != Suffix.Type.SCI && power < 27) power = power / 3 * 3; // 100 YOTTA is max. if higher switch to SCI notation
+		else type = Suffix.Type.SCI;
+		
+		String significand = String.valueOf(ctx.math.floor(toughness / Math.pow(10, power) * 10F) / 10F);    // one decimal precision
+		if(significand.endsWith(".0")) significand = significand.substring(0, significand.length() - 2); // strip .0
+		significand += (type == Suffix.Type.SCI ? "E" + power : Suffix.byPow(power).getSuffix(type));    // add suffix
+		
+		int color = ctx.config.hex(HexOption.TEXT_COLOR_TOUGHNESS);
+		Side side = ctx.config.enm(EnumOption.TOUGHNESS_SIDE);
+		
+		if (ctx.config.bool(BooleanOption.TOUGHNESS_TEXT_CONFIG_ENABLE))
+			 new RenderableText(significand)
+				.withAlignment(ctx.config.enm(EnumOption.TOUGHNESS_TEXT_ALIGNMENT))
+				.withColor(color)
+				.withShadow(ctx.config.bool(BooleanOption.TEXT_SHADOW))
+				.render(ctx.poseStack, ctx.renderer, ctx.config.dec(FloatOption.TOUGHNESS_TEXT_X), ctx.config.dec(FloatOption.TOUGHNESS_TEXT_Y));
+		else new RenderableText(significand)
+				.withAlignment(side.preferredAlignment())
+				.withColor(color)
+				.withShadow(ctx.config.bool(BooleanOption.TEXT_SHADOW))
+				.render(ctx.poseStack, ctx.renderer, ctx.x + (side == Side.RIGHT ? 83 : -1), ctx.y + 0.5F); // 82 would be the correct distance, though 83 feels better because the shadow takes one additional pixel when rendering on the left side -> +1 distance when on right side
+		return popReturn(ctx, true);
+	}
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/render/VanillaArmorComponent.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/render/VanillaArmorComponent.java
+文件名：VanillaArmorComponent.java
+文件大小：845 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.render;
+
+import dev.cheos.armorpointspp.core.IRenderComponent;
+import dev.cheos.armorpointspp.core.RenderContext;
+import dev.cheos.armorpointspp.core.adapter.IConfig.BooleanOption;
+import dev.cheos.armorpointspp.core.texture.ITextureSheet;
+
+public class VanillaArmorComponent implements IRenderComponent {
+	@Override
+	public boolean render(RenderContext ctx) {
+		if (!ctx.shouldRenderArmor() || ctx.config.bool(BooleanOption.ARMOR_ENABLE) || ctx.config.bool(BooleanOption.ARMOR_HIDDEN))
+			return false;
+		
+		ctx.profiler.push("armor");
+		ITextureSheet.vanillaSheet().bind(ctx);
+		int x = ctx.x;
+		int armor = ctx.data.armor();
+		for (int i = 1; armor > 0 && i < 20; i += 2, x += 8)
+			ITextureSheet.vanillaSheet().drawArmor(ctx, x, ctx.y, i > armor ? 0 : 1, i == armor);
+		return popReturn(ctx, true);
+	}
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/texture/ITextureSheet.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/texture/ITextureSheet.java
+文件名：ITextureSheet.java
+文件大小：4825 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.texture;
+
+import java.util.List;
+
+import com.google.common.collect.*;
+
+import dev.cheos.armorpointspp.core.RenderContext;
+import dev.cheos.armorpointspp.core.SpriteInfo;
+import dev.cheos.armorpointspp.core.adapter.IConfig.StringOption;
+
+public interface ITextureSheet {
+	void drawOverlay    (RenderContext ctx, int x, int y,                  boolean half,                 boolean hardcore, OverlaySprite sprite); //
+	void drawHeartBG    (RenderContext ctx, int x, int y,                                boolean bright, boolean hardcore);                      //
+	void drawAbsorb     (RenderContext ctx, int x, int y, int amount,                    boolean bright);                                       // 0 -> nothing
+	void drawArmor      (RenderContext ctx, int x, int y, int spriteLevel, boolean half);                                                      // 0 -> "empty" background
+	void drawHeart      (RenderContext ctx, int x, int y, int spriteLevel, boolean half, boolean bright, boolean hardcore, HeartStyle style); // 0 -> nothing
+	void drawAbsorbHeart(RenderContext ctx, int x, int y,                  boolean half, boolean right , boolean hardcore);                  //
+	void drawToughness  (RenderContext ctx, int x, int y, int spriteLevel, boolean half, boolean icon  , boolean mirror);                   //
+	void drawMagicShield(RenderContext ctx, int x, int y, int spriteLevel);                                                                // 0 -> lowest level
+	
+	String texLocation();
+	
+	default int spriteWidth()  { return   9; } // scaled sprite width
+	default int spriteHeight() { return   9; } // scaled sprite height
+	default int texWidth()     { return 256; } // assumed tex width  (scaled if other)
+	default int texHeight()    { return 128; } // assumed tex height (scaled if other)
+	
+	default int getMaxHealthLevel()    { return 10; }
+	default int getMaxArmorLevel()     { return 12; }
+	default int getMaxToughnessLevel() { return 12; }
+	
+	default ITextureSheet bind(RenderContext ctx) { ctx.renderer.setupTexture(this); return this; }
+	default ITextureSheet blit(RenderContext ctx, int x, int y, float u, float v, int w, int h) {
+		ctx.renderer.blit(ctx.poseStack, x, y, u, v, w, h, texWidth(), texHeight()); return this;
+	}
+	default ITextureSheet blit(RenderContext ctx, int x, int y, float u, float v) {
+		ctx.renderer.blit(ctx.poseStack, x, y, u, v, spriteWidth(), spriteHeight(), texWidth(), texHeight()); return this;
+	}
+	default ITextureSheet blitSprite(RenderContext ctx, int x, int y, SpriteInfo sprite) {
+		ctx.renderer.blitSprite(ctx.poseStack, x, y, spriteWidth(), spriteHeight(), sprite); return this;
+	}
+	default ITextureSheet blitSprite(RenderContext ctx, int x, int y, int width, int height, SpriteInfo sprite, int uOffset, int vOffset) {
+		ctx.renderer.blitSprite(ctx.poseStack, x, y, width, height, sprite, uOffset, vOffset, spriteWidth(), spriteHeight()); return this;
+	}
+	default ITextureSheet blitM(RenderContext ctx, int x, int y, float u, float v, int w, int h) {
+		ctx.renderer.blitM(ctx.poseStack, x, y, u, v, w, h, texWidth(), texHeight()); return this;
+	}
+	default ITextureSheet blitM(RenderContext ctx, int x, int y, float u, float v) {
+		ctx.renderer.blitM(ctx.poseStack, x, y, u, v, spriteWidth(), spriteHeight(), texWidth(), texHeight()); return this;
+	}
+	
+	
+	static final BiMap<String, ITextureSheet> sheets = HashBiMap.create();
+	static final ITextureSheet vanillaSheet = register("vanilla", new VanillaTextureSheet());
+	static final ITextureSheet defaultSheet = register("default", new StandardTextureSheet("icons"));
+	static final ITextureSheet hallowSheet  = register("hallow" , new StandardTextureSheet("hallow"));
+	static final List<ITextureSheet> builtins = ImmutableList.of(defaultSheet, hallowSheet, vanillaSheet); // only to be used for config option, does not contain vanilla sheet
+	// TODO add other builtin texture sheets
+	public static ITextureSheet vanillaSheet() { return vanillaSheet; }
+	public static ITextureSheet defaultSheet() { return defaultSheet; }
+	
+	public static ITextureSheet currentSheet(RenderContext ctx) {
+		return sheets.computeIfAbsent(ctx.config.str(StringOption.TEXTURE_SHEET), id -> register(new StandardTextureSheet(id)));
+	}
+	
+	static ITextureSheet register(ITextureSheet sheet) {
+		return register(sheet.texLocation(), sheet);
+	}
+	
+	static ITextureSheet register(String id, ITextureSheet sheet) {
+		if (sheets.putIfAbsent(id, sheet) != null)
+			throw new IllegalStateException("Tried to register a texture sheet with the same id twice");
+		return sheet;
+	}
+	
+	
+	public static enum OverlaySprite {
+		FROSTBITE,
+		FROSTBITE_FULL,
+		FROSTBITE_ICON,
+		PROTECTION,
+		RESISTANCE_NONE,
+		RESISTANCE_HALF,
+		RESISTANCE_FULL;
+	}
+	
+	public static enum HeartStyle {
+		NORMAL,
+		POISON,
+		WITHER;
+	}
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/texture/StandardTextureSheet.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/texture/StandardTextureSheet.java
+文件名：StandardTextureSheet.java
+文件大小：3412 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.texture;
+
+import dev.cheos.armorpointspp.core.RenderContext;
+
+public class StandardTextureSheet implements ITextureSheet {
+	private final String location;
+	
+	public StandardTextureSheet(String location) {
+		this.location = location;
+	}
+	
+	@Override
+	public void drawOverlay(RenderContext ctx, int x, int y, boolean half, boolean hardcore, OverlaySprite sprite) {
+		switch (sprite) {
+			case FROSTBITE:
+				blit(ctx, x, y,      (half ? 9 : 0) + (hardcore ? 18 : 0), 117);
+				break;
+			case FROSTBITE_FULL:
+				blit(ctx, x, y, 36 + (half ? 9 : 0) + (hardcore ? 18 : 0), 117);
+				break;
+			case FROSTBITE_ICON:
+				ctx.poseStack.pushPose();
+				ctx.poseStack.scale(0.5F, 0.5F, 1);
+				blit(ctx, 2 * x + 8, 2 * y + 1, 27, 18);
+				ctx.poseStack.popPose();
+				break;
+			case PROTECTION:
+				blit(ctx, x, y,  9, 18);
+				break;
+			case RESISTANCE_FULL:
+				blit(ctx, x, y, 18,  0);
+				break;
+			case RESISTANCE_HALF:
+				blit(ctx, x, y,  9,  0);
+				break;
+			case RESISTANCE_NONE:
+				blit(ctx, x, y,  0,  0);
+				break;
+			default:
+				throw new IllegalArgumentException("Unknown overlay sprite: " + sprite.name());
+		}
+	}
+	
+	@Override
+	public void drawHeartBG(RenderContext ctx, int x, int y, boolean bright, boolean hardcore) {
+		blit(ctx, x, y, bright ? 18 : 0, 18);
+	}
+	
+	@Override
+	public void drawAbsorb(RenderContext ctx, int x, int y, int amount, boolean bright) {
+		amount = ctx.math.clamp(amount, 1, 20);
+		blit(ctx, x, y, (bright ? 18 : 0) + 9 * (amount % 2), 18 + 9 * ((amount + 1) / 2));
+	}
+	
+	@Override
+	public void drawArmor(RenderContext ctx, int x, int y, int spriteLevel, boolean half) {
+		if (spriteLevel >= getMaxArmorLevel()) half = false;
+		blit(ctx, x, y, (half ? 36 : 27) + 18 * ctx.math.clamp(spriteLevel, 0, getMaxArmorLevel()), 0);
+	}
+	
+	@Override
+	public void drawHeart(RenderContext ctx, int x, int y, int spriteLevel, boolean half, boolean bright, boolean hardcore, HeartStyle style) {
+		if (spriteLevel >= getMaxHealthLevel()) half = false;
+		blit(ctx ,
+				x,
+				y,
+				(hardcore ? 144 : 36)
+				+ (half ? 9 : 0)
+				+ (bright ? 18 : 0)
+				+ (style == HeartStyle.POISON ? 36 : style == HeartStyle.WITHER ? 72 : 0),
+				18 + 9 * ctx.math.clamp(spriteLevel, 0, getMaxHealthLevel()));
+	}
+	
+	@Override
+	public void drawAbsorbHeart(RenderContext ctx, int x, int y, boolean half, boolean right, boolean hardcore) {
+		blit(ctx ,
+				x,
+				y,
+				(hardcore ? 126 : 117)
+				+ (half && right ? 5 : 0),
+				117,
+				half ? right ? 4 : 5 : spriteWidth(),
+				9);
+	}
+	
+	@Override
+	public void drawToughness(RenderContext ctx, int x, int y, int spriteLevel, boolean half, boolean icon, boolean mirror) {
+		if (spriteLevel >= getMaxToughnessLevel()) half = false;
+		if (icon) {
+			ctx.poseStack.pushPose();
+			ctx.poseStack.scale(0.5F, 0.5F, 1);
+			blit(ctx, 2 * x + 9, 2 * y + 8, 45 + 18 * ctx.math.clamp(spriteLevel, 0, 11), 9); // no empty icons -> 0 = silver icon
+			ctx.poseStack.popPose();
+		} else if (mirror) blitM(ctx, x, y, (half ? 36 : 27) + 18 * ctx.math.clamp(spriteLevel, 0, getMaxToughnessLevel()), 9);
+		else blit(ctx, x, y, (half ? 36 : 27) + 18 * ctx.math.clamp(spriteLevel, 0, getMaxToughnessLevel()), 9);
+	}
+
+	@Override
+	public void drawMagicShield(RenderContext ctx, int x, int y, int spriteLevel) {
+		blit(ctx, x, y, 72 + 36 - 9 * (spriteLevel % 5), 117);
+	}
+	
+	@Override
+	public String texLocation() {
+		return this.location;
+	}
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/java/dev/cheos/armorpointspp/core/texture/VanillaTextureSheet.java
+项目内路径：/src/main/java/dev/cheos/armorpointspp/core/texture/VanillaTextureSheet.java
+文件名：VanillaTextureSheet.java
+文件大小：2249 字节
+================================================================================
+文件内容：
+package dev.cheos.armorpointspp.core.texture;
+
+import dev.cheos.armorpointspp.core.*;
+
+public final class VanillaTextureSheet implements ITextureSheet {
+	static { VanillaSprites.init(); }
+	
+	@Override public int texHeight() { return 256; } // vanilla texture is square
+	
+	@Override
+	public void drawOverlay(RenderContext ctx, int x, int y, boolean half, boolean hardcore, OverlaySprite sprite) {
+		if (sprite == OverlaySprite.FROSTBITE || sprite == OverlaySprite.FROSTBITE_FULL || sprite == OverlaySprite.FROSTBITE_ICON)
+			blitSprite(ctx, x, y, SpriteInfo.byUV(half ? 187 : 178, hardcore ? 45 : 0));
+	}
+	
+	@Override
+	public void drawHeartBG(RenderContext ctx, int x, int y, boolean bright, boolean hardcore) {
+		blitSprite(ctx, x, y, SpriteInfo.byUV(bright ? 25 : 16, hardcore ? 45 : 0));
+	}
+	
+	@Override
+	public void drawAbsorb(RenderContext ctx, int x, int y, int amount, boolean bright) { }
+	
+	@Override
+	public void drawArmor(RenderContext ctx, int x, int y, int spriteLevel, boolean half) {
+		blitSprite(ctx, x, y, SpriteInfo.byUV(spriteLevel < 1 ? 16 : half ? 25 : 34, 9));
+	}
+	
+	@Override
+	public void drawHeart(RenderContext ctx, int x, int y, int spriteLevel, boolean half, boolean bright, boolean hardcore, HeartStyle style) {
+		blitSprite(ctx, x, y, SpriteInfo.byUV((half ? 9 : 0) + (bright ? 18 : 0) + (style == HeartStyle.WITHER
+				? 124
+				: style == HeartStyle.POISON
+					? 88
+					: 52),
+				hardcore ? 45 : 0));
+	}
+	
+	@Override
+	public void drawAbsorbHeart(RenderContext ctx, int x, int y, boolean half, boolean right, boolean hardcore) {
+		if (!right || !half)
+			blitSprite(ctx, x, y, SpriteInfo.byUV(half ? 169 : 160, hardcore ? 45 : 0));
+		else blitSprite(ctx, x, y, 4, 9, SpriteInfo.byUV(160, hardcore ? 45 : 0), 5, 0);
+	}
+	
+	@Override
+	public void drawToughness(RenderContext ctx, int x, int y, int spriteLevel, boolean half, boolean icon, boolean mirror) { }
+	
+	@Override
+	public void drawMagicShield(RenderContext ctx, int x, int y, int spriteLevel) { }
+	
+	@Override
+	public String texLocation() {
+		return "minecraft:textures/gui/icons.png";
+	}
+	
+	@Override public int getMaxHealthLevel() { return 1; }
+	@Override public int getMaxArmorLevel() { return 1; }
+	@Override public int getMaxToughnessLevel() { return 1; }
+}
+
+【该文件结束】
+
+================================================================================
+【文件信息】
+完整路径：/storage/emulated/0/ArmorpointsPlusplus/core/src/main/resources/LICENSE
+项目内路径：/src/main/resources/LICENSE
+文件名：LICENSE
+文件大小：1067 字节
+================================================================================
+文件内容：
+MIT License
+
+Copyright (c) 2020-2023 Cheos
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+【该文件结束】
+
+整合完成！总共处理 46 个文件。
